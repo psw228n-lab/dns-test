@@ -1,0 +1,992 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f3f0ea">
+  <meta name="description" content="6개의 질문으로 알아보는 나의 럭셔리 취향 DNA 테스트">
+  <title>나의 럭셔리 취향 DNA 테스트</title>
+
+  <style>
+    :root {
+      /* 팀 컬러가 정해지면 아래 한 줄만 교체하세요. */
+      --accent: #76545a;
+      --accent-dark: #5c3e43;
+      --ink: #25231f;
+      --muted: #77726b;
+      --line: #d9d4cc;
+      --paper: #f3f0ea;
+      --card: #fbfaf7;
+      --white: #ffffff;
+      --shadow: 0 24px 70px rgba(30, 26, 22, 0.12);
+      --ease: cubic-bezier(0.22, 0.72, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      background: #e8e4de;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+        "Noto Sans KR", "Malgun Gothic", sans-serif;
+      word-break: keep-all;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    button,
+    a {
+      font: inherit;
+      touch-action: manipulation;
+    }
+
+    button {
+      border: 0;
+    }
+
+    .app {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(118, 84, 90, 0.09), transparent 30%),
+        var(--paper);
+    }
+
+    @supports (min-height: 100dvh) {
+      .app {
+        min-height: 100dvh;
+        height: 100dvh;
+      }
+    }
+
+    .screen {
+      min-height: inherit;
+      height: 100%;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 180ms ease, transform 220ms var(--ease);
+      scrollbar-width: none;
+    }
+
+    .screen::-webkit-scrollbar {
+      display: none;
+    }
+
+    .screen[hidden] {
+      display: none;
+    }
+
+    .screen.is-exiting {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+
+    .screen.is-entering {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--accent);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .primary-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 58px;
+      padding: 16px 22px;
+      border: 1px solid var(--accent);
+      border-radius: 3px;
+      background: var(--accent);
+      color: var(--white);
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 140ms ease, transform 120ms ease, box-shadow 160ms ease;
+    }
+
+    .primary-button:active {
+      transform: scale(0.985);
+      background: var(--accent-dark);
+    }
+
+    .primary-button:focus-visible,
+    .option:focus-visible,
+    .back-button:focus-visible {
+      outline: 3px solid rgba(118, 84, 90, 0.25);
+      outline-offset: 3px;
+    }
+
+    /* Intro */
+    .intro-screen {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding:
+        max(34px, env(safe-area-inset-top))
+        24px
+        max(24px, env(safe-area-inset-bottom));
+    }
+
+    .intro-topline {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .intro-topline::after {
+      width: 42px;
+      height: 1px;
+      background: var(--accent);
+      content: "";
+    }
+
+    .intro-copy {
+      margin: auto 0;
+      padding: 52px 0 42px;
+    }
+
+    .intro-index {
+      display: block;
+      margin-bottom: 24px;
+      color: var(--accent);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 4rem;
+      line-height: 0.8;
+      opacity: 0.2;
+    }
+
+    .intro-title {
+      max-width: 330px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", "Batang", serif;
+      font-size: clamp(2.25rem, 10.5vw, 3.25rem);
+      font-weight: 500;
+      line-height: 1.18;
+      letter-spacing: -0.055em;
+    }
+
+    .intro-description {
+      max-width: 300px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.75;
+      letter-spacing: -0.025em;
+    }
+
+    .intro-footer {
+      display: grid;
+      gap: 14px;
+    }
+
+    .time-hint {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+
+    /* Questions */
+    .question-screen {
+      padding:
+        max(20px, env(safe-area-inset-top))
+        20px
+        max(20px, env(safe-area-inset-bottom));
+    }
+
+    .question-header {
+      position: relative;
+      z-index: 2;
+    }
+
+    .question-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 42px;
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 54px;
+      min-height: 42px;
+      padding: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.76rem;
+      cursor: pointer;
+    }
+
+    .back-arrow {
+      width: 8px;
+      height: 8px;
+      border-bottom: 1px solid currentColor;
+      border-left: 1px solid currentColor;
+      transform: rotate(45deg);
+    }
+
+    .progress-count {
+      min-width: 48px;
+      margin: 0;
+      color: var(--muted);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.76rem;
+      letter-spacing: 0.12em;
+      text-align: right;
+    }
+
+    .progress-count strong {
+      color: var(--ink);
+      font-size: 0.94rem;
+      font-weight: 500;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+      background: var(--line);
+    }
+
+    .progress-fill {
+      width: 16.666%;
+      height: 100%;
+      background: var(--accent);
+      transform-origin: left center;
+      transition: width 360ms var(--ease);
+    }
+
+    .question-body {
+      padding-top: clamp(34px, 7vh, 64px);
+      opacity: 1;
+      transform: translateX(0);
+      transition: opacity 150ms ease, transform 180ms var(--ease);
+    }
+
+    .question-body.is-leaving-next {
+      opacity: 0;
+      transform: translateX(-18px);
+    }
+
+    .question-body.is-leaving-prev {
+      opacity: 0;
+      transform: translateX(18px);
+    }
+
+    .question-body.is-entering-next {
+      opacity: 0;
+      transform: translateX(18px);
+    }
+
+    .question-body.is-entering-prev {
+      opacity: 0;
+      transform: translateX(-18px);
+    }
+
+    .question-label {
+      margin: 0 0 13px;
+      color: var(--accent);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+    }
+
+    .question-title {
+      min-height: 58px;
+      margin: 0;
+      font-size: clamp(1.13rem, 5vw, 1.45rem);
+      font-weight: 650;
+      line-height: 1.42;
+      letter-spacing: -0.045em;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+      margin-top: clamp(27px, 5vh, 42px);
+    }
+
+    .option {
+      position: relative;
+      display: grid;
+      grid-template-columns: 29px 1fr 16px;
+      align-items: center;
+      width: 100%;
+      min-height: 67px;
+      padding: 12px 14px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      background: rgba(251, 250, 247, 0.82);
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      transition:
+        border-color 130ms ease,
+        background 130ms ease,
+        color 130ms ease,
+        transform 120ms ease;
+    }
+
+    .option::after {
+      width: 7px;
+      height: 7px;
+      justify-self: end;
+      border-top: 1px solid currentColor;
+      border-right: 1px solid currentColor;
+      content: "";
+      opacity: 0.35;
+      transform: rotate(45deg);
+    }
+
+    .option:active {
+      transform: scale(0.992);
+    }
+
+    .option.is-selected {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: var(--white);
+      transform: scale(0.992);
+    }
+
+    .option.was-selected:not(.is-selected) {
+      border-color: rgba(118, 84, 90, 0.55);
+      background: rgba(118, 84, 90, 0.07);
+    }
+
+    .option-letter {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .option-text {
+      display: -webkit-box;
+      overflow: hidden;
+      font-size: clamp(0.77rem, 3.35vw, 0.87rem);
+      font-weight: 550;
+      line-height: 1.45;
+      letter-spacing: -0.04em;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+
+    /* Result */
+    .result-screen {
+      padding:
+        max(32px, env(safe-area-inset-top))
+        20px
+        max(24px, env(safe-area-inset-bottom));
+    }
+
+    .result-intro {
+      padding: 6px 4px 24px;
+      text-align: center;
+    }
+
+    .result-ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      margin: 18px auto 16px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      color: var(--accent);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.2rem;
+    }
+
+    .result-type {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", "Batang", serif;
+      font-size: clamp(1.8rem, 8vw, 2.3rem);
+      font-weight: 500;
+      letter-spacing: -0.05em;
+    }
+
+    .result-definition {
+      max-width: 340px;
+      margin: 13px auto 0;
+      color: var(--muted);
+      font-size: 0.89rem;
+      line-height: 1.65;
+      letter-spacing: -0.035em;
+    }
+
+    .result-card {
+      padding: 25px 22px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--card);
+      box-shadow: 0 14px 34px rgba(30, 26, 22, 0.055);
+    }
+
+    .card-heading {
+      margin: 0 0 15px;
+      color: var(--accent);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .feature-list li {
+      position: relative;
+      padding-left: 16px;
+      font-size: 0.86rem;
+      line-height: 1.55;
+      letter-spacing: -0.03em;
+    }
+
+    .feature-list li::before {
+      position: absolute;
+      top: 0.62em;
+      left: 0;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      content: "";
+    }
+
+    .keyword-block {
+      margin-top: 20px;
+      padding-top: 17px;
+      border-top: 1px solid var(--line);
+    }
+
+    .keyword-label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+
+    .result-keywords {
+      margin: 0;
+      color: var(--accent-dark);
+      font-family: Georgia, "Times New Roman", "Batang", serif;
+      font-size: 0.94rem;
+      font-weight: 600;
+      line-height: 1.55;
+      letter-spacing: -0.025em;
+    }
+
+    .cta-area {
+      padding: 27px 3px 0;
+    }
+
+    .bridge-copy {
+      max-width: 350px;
+      margin: 0 auto 15px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.55;
+      letter-spacing: -0.035em;
+      text-align: center;
+    }
+
+    .result-note {
+      margin: 12px 0 0;
+      color: #99938b;
+      font-size: 0.66rem;
+      letter-spacing: 0.05em;
+      text-align: center;
+    }
+
+    @media (min-width: 600px) {
+      body {
+        align-items: center;
+        padding: 24px;
+      }
+
+      .app {
+        min-height: min(820px, calc(100vh - 48px));
+        height: min(820px, calc(100vh - 48px));
+        border: 1px solid rgba(37, 35, 31, 0.08);
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+    }
+
+    @media (max-height: 700px) {
+      .question-body {
+        padding-top: 25px;
+      }
+
+      .options {
+        gap: 8px;
+        margin-top: 22px;
+      }
+
+      .option {
+        min-height: 60px;
+        padding-top: 9px;
+        padding-bottom: 9px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="app" id="app">
+    <section class="screen intro-screen" id="intro-screen" aria-labelledby="intro-title">
+      <div class="intro-topline">
+        <p class="eyebrow">Taste Profile</p>
+      </div>
+
+      <div class="intro-copy">
+        <span class="intro-index" aria-hidden="true">06</span>
+        <h1 class="intro-title" id="intro-title">나의 럭셔리<br>취향 DNA 테스트</h1>
+        <p class="intro-description">6개의 선택으로 발견하는<br>나만의 럭셔리 취향 코드</p>
+      </div>
+
+      <div class="intro-footer">
+        <button class="primary-button" id="btn_test_start" type="button">테스트 시작하기</button>
+        <p class="time-hint">약 1분 소요 · 총 6문항</p>
+      </div>
+    </section>
+
+    <section class="screen question-screen" id="question-screen" aria-labelledby="question-title" hidden>
+      <header class="question-header">
+        <div class="question-nav">
+          <button class="back-button" id="back-button" type="button" aria-label="이전 문항으로 돌아가기">
+            <span class="back-arrow" aria-hidden="true"></span>
+            <span>이전</span>
+          </button>
+          <p class="progress-count" aria-live="polite">
+            <strong id="current-count">1</strong> / 6
+          </p>
+        </div>
+        <div class="progress-track" role="progressbar" aria-label="테스트 진행률" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </header>
+
+      <div class="question-body" id="question-body">
+        <p class="question-label" id="question-label">QUESTION 01</p>
+        <h2 class="question-title" id="question-title"></h2>
+        <div class="options" id="options" role="group" aria-labelledby="question-title"></div>
+      </div>
+    </section>
+
+    <section class="screen result-screen" id="result-screen" aria-labelledby="result-type" hidden>
+      <div class="result-intro">
+        <p class="eyebrow">Your Taste DNA</p>
+        <div class="result-ornament" id="result-letter" aria-hidden="true">A</div>
+        <h2 class="result-type" id="result-type"></h2>
+        <p class="result-definition" id="result-definition"></p>
+      </div>
+
+      <article class="result-card">
+        <h3 class="card-heading">Your Characteristics</h3>
+        <ul class="feature-list" id="feature-list"></ul>
+        <div class="keyword-block">
+          <span class="keyword-label">KEYWORDS</span>
+          <p class="result-keywords" id="result-keywords"></p>
+        </div>
+      </article>
+
+      <div class="cta-area">
+        <p class="bridge-copy" id="bridge-copy"></p>
+        <a class="primary-button" id="btn_cta" href="[FINAL_URL]">내 취향에 맞는 후기 더 보기</a>
+        <p class="result-note">취향에 맞는 아이템과 실제 후기를 만나보세요</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var TYPES = ["A", "B", "C", "D"];
+
+      var questions = [
+        {
+          question: "옷장을 열었을 때, 당신이 먼저 손이 가는 아이템은?",
+          options: {
+            A: "각 잡힌 무채색 아이템, 로고 없이도 티가 나는 소재감",
+            B: "오래 신어도 질리지 않는, 브랜드 역사가 긴 클래식한 아이템",
+            C: "남들은 잘 모르는 브랜드지만 나만 아는 디자이너의 아이템",
+            D: "이번 시즌 화제가 된, 지금 가장 핫한 아이템"
+          }
+        },
+        {
+          question: "SNS에 명품 관련 게시물을 올린다면, 당신의 방식은?",
+          options: {
+            A: "브랜드보다 스타일링과 무드 위주로, 은근하게",
+            B: "오래 써온 아이템의 세월과 애착을 보여주는 스토리 중심",
+            C: "\"이거 아는 사람?\" 싶은 발견의 재미를 공유",
+            D: "신상 언박싱이나 착용샷을 빠르게 업로드"
+          }
+        },
+        {
+          question: "새로운 브랜드를 알게 됐을 때, 당신의 반응은?",
+          options: {
+            A: "로고보다 소재와 만듦새부터 확인한다",
+            B: "브랜드가 걸어온 히스토리와 장인정신을 찾아본다",
+            C: "아직 대중적이지 않은 브랜드라는 점에 끌린다",
+            D: "지금 얼마나 화제가 되고 있는지부터 검색한다"
+          }
+        },
+        {
+          question: "쇼핑할 때 가장 우선순위에 두는 가치는?",
+          options: {
+            A: "티 나지 않는 고급스러움",
+            B: "오래 두고 써도 가치가 유지되는 것",
+            C: "나만의 취향을 드러낼 수 있는 것",
+            D: "지금 이 순간 가장 주목받는 것"
+          }
+        },
+        {
+          question: "친구가 \"이 브랜드 어때?\"라고 물으면, 당신의 대답 스타일은?",
+          options: {
+            A: "\"디자인이 절제돼 있어서 좋아 보이는데\"",
+            B: "\"역사가 오래된 만큼 믿을 만하지\"",
+            C: "\"아직 많이 안 알려졌는데 한번 찾아봐\"",
+            D: "\"요즘 다들 그거 얘기하더라\""
+          }
+        },
+        {
+          question: "명품을 산 뒤, 가장 뿌듯함을 느끼는 순간은?",
+          options: {
+            A: "아무도 눈치채지 못하지만 나는 아는 디테일을 발견할 때",
+            B: "이 아이템이 몇 년이 지나도 변함없이 좋을 거라는 확신이 들 때",
+            C: "남들이 \"이거 뭐야?\"라고 물어볼 때",
+            D: "트렌드를 가장 먼저 시도했다는 만족감이 들 때"
+          }
+        }
+      ];
+
+      var results = {
+        A: {
+          name: "조용한 럭셔리형",
+          definition: "로고보다 만듦새로 말하는, 절제된 취향의 소유자",
+          features: [
+            "과시보다 자기만족을 우선함",
+            "소재와 디테일을 중요하게 봄",
+            "은근한 스타일링을 선호함"
+          ],
+          keywords: "미니멀 · 무채색 · 절제된 실루엣",
+          bridge: "당신처럼 조용한 취향을 가진 사람들은 어떤 아이템을 선택했을까?"
+        },
+        B: {
+          name: "헤리티지 추구형",
+          definition: "유행보다 시간이 증명한 가치를 믿는 사람",
+          features: [
+            "브랜드 히스토리에 높은 점수를 줌",
+            "장기 보유를 전제로 구매함",
+            "전통과 장인정신을 신뢰함"
+          ],
+          keywords: "클래식 · 정통 · 소장가치",
+          bridge: "오래 두고 봐도 좋은 아이템, 실제 구매자들의 후기는?"
+        },
+        C: {
+          name: "니치 브랜드 탐험형",
+          definition: "남들이 모르는 걸 먼저 발견하는 게 진짜 취향이라 믿는 사람",
+          features: [
+            "신진·디자이너 브랜드에 관심이 많음",
+            "발견하는 과정 자체를 즐김",
+            "나만의 취향 표현을 중요하게 여김"
+          ],
+          keywords: "디스커버리 · 언더그라운드 · 나만의 발견",
+          bridge: "아직 많이 알려지지 않았지만, 이미 써본 사람들의 이야기"
+        },
+        D: {
+          name: "트렌드 세터형",
+          definition: "지금 이 순간 가장 화제가 되는 것을 먼저 시도하는 사람",
+          features: [
+            "신상과 화제성에 민감함",
+            "실행력이 빠름",
+            "트렌드를 선도하는 데서 만족감을 느낌"
+          ],
+          keywords: "신상 · 화제 · 빠른 실행",
+          bridge: "요즘 가장 많이 언급되는 아이템, 실착 후기부터 확인해보기"
+        }
+      };
+
+      var introScreen = document.getElementById("intro-screen");
+      var questionScreen = document.getElementById("question-screen");
+      var resultScreen = document.getElementById("result-screen");
+      var questionBody = document.getElementById("question-body");
+      var questionTitle = document.getElementById("question-title");
+      var questionLabel = document.getElementById("question-label");
+      var optionsContainer = document.getElementById("options");
+      var progressFill = document.getElementById("progress-fill");
+      var progressTrack = document.querySelector(".progress-track");
+      var currentCount = document.getElementById("current-count");
+      var startButton = document.getElementById("btn_test_start");
+      var backButton = document.getElementById("back-button");
+      var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      var currentQuestion = 0;
+      var answers = [];
+      var transitioning = false;
+
+      /**
+       * 최다 선택 유형을 반환합니다.
+       * 동점이면 답변을 마지막 문항부터 역순으로 확인해
+       * 가장 나중에 선택된 동점 유형을 우선합니다.
+       * @param {string[]} answerList
+       * @returns {string}
+       */
+      function calculateResult(answerList) {
+        var scores = { A: 0, B: 0, C: 0, D: 0 };
+
+        answerList.forEach(function (answer) {
+          if (Object.prototype.hasOwnProperty.call(scores, answer)) {
+            scores[answer] += 1;
+          }
+        });
+
+        var highestScore = Math.max(scores.A, scores.B, scores.C, scores.D);
+        var tiedTypes = TYPES.filter(function (type) {
+          return scores[type] === highestScore;
+        });
+
+        for (var index = answerList.length - 1; index >= 0; index -= 1) {
+          if (tiedTypes.indexOf(answerList[index]) !== -1) {
+            return answerList[index];
+          }
+        }
+
+        return "A";
+      }
+
+      function switchScreen(fromScreen, toScreen, onShown) {
+        fromScreen.classList.add("is-exiting");
+
+        window.setTimeout(function () {
+          fromScreen.hidden = true;
+          fromScreen.classList.remove("is-exiting");
+          toScreen.hidden = false;
+          toScreen.scrollTop = 0;
+          toScreen.classList.add("is-entering");
+
+          if (typeof onShown === "function") {
+            onShown();
+          }
+
+          window.requestAnimationFrame(function () {
+            window.requestAnimationFrame(function () {
+              toScreen.classList.remove("is-entering");
+            });
+          });
+        }, reducedMotion ? 20 : 180);
+      }
+
+      function updateProgress() {
+        var number = currentQuestion + 1;
+        currentCount.textContent = String(number);
+        progressFill.style.width = ((number / questions.length) * 100) + "%";
+        progressTrack.setAttribute("aria-valuenow", String(number));
+      }
+
+      function renderQuestion() {
+        var item = questions[currentQuestion];
+        questionLabel.textContent = "QUESTION " + String(currentQuestion + 1).padStart(2, "0");
+        questionTitle.textContent = item.question;
+        optionsContainer.innerHTML = "";
+
+        TYPES.forEach(function (type) {
+          var button = document.createElement("button");
+          var letter = document.createElement("span");
+          var text = document.createElement("span");
+
+          button.type = "button";
+          button.className = "option";
+          button.dataset.type = type;
+          button.setAttribute("aria-label", type + ". " + item.options[type]);
+
+          if (answers[currentQuestion] === type) {
+            button.classList.add("was-selected");
+          }
+
+          letter.className = "option-letter";
+          letter.textContent = type;
+          letter.setAttribute("aria-hidden", "true");
+
+          text.className = "option-text";
+          text.textContent = item.options[type];
+
+          button.appendChild(letter);
+          button.appendChild(text);
+          button.addEventListener("click", selectAnswer);
+          optionsContainer.appendChild(button);
+        });
+
+        updateProgress();
+      }
+
+      function moveToQuestion(nextIndex, direction) {
+        var leavingClass = direction === "prev" ? "is-leaving-prev" : "is-leaving-next";
+        var enteringClass = direction === "prev" ? "is-entering-prev" : "is-entering-next";
+
+        transitioning = true;
+        questionBody.classList.add(leavingClass);
+
+        window.setTimeout(function () {
+          currentQuestion = nextIndex;
+          renderQuestion();
+          questionBody.classList.remove(leavingClass);
+          questionBody.classList.add(enteringClass);
+
+          window.requestAnimationFrame(function () {
+            window.requestAnimationFrame(function () {
+              questionBody.classList.remove(enteringClass);
+              window.setTimeout(function () {
+                transitioning = false;
+              }, reducedMotion ? 10 : 170);
+            });
+          });
+        }, reducedMotion ? 20 : 160);
+      }
+
+      function renderResult(type) {
+        var result = results[type];
+        var featureList = document.getElementById("feature-list");
+
+        document.getElementById("result-letter").textContent = type;
+        document.getElementById("result-type").textContent = result.name;
+        document.getElementById("result-definition").textContent = result.definition;
+        document.getElementById("result-keywords").textContent = result.keywords;
+        document.getElementById("bridge-copy").textContent = result.bridge;
+        resultScreen.dataset.result = type;
+
+        featureList.innerHTML = "";
+        result.features.forEach(function (feature) {
+          var item = document.createElement("li");
+          item.textContent = feature;
+          featureList.appendChild(item);
+        });
+      }
+
+      function showResult() {
+        var type = calculateResult(answers);
+        renderResult(type);
+        switchScreen(questionScreen, resultScreen, function () {
+          transitioning = false;
+          resultScreen.setAttribute("tabindex", "-1");
+          resultScreen.focus();
+        });
+      }
+
+      function selectAnswer(event) {
+        if (transitioning) {
+          return;
+        }
+
+        transitioning = true;
+        var selectedButton = event.currentTarget;
+        var selectedType = selectedButton.dataset.type;
+        var optionButtons = optionsContainer.querySelectorAll(".option");
+
+        optionButtons.forEach(function (button) {
+          button.disabled = true;
+          button.classList.remove("is-selected", "was-selected");
+        });
+
+        selectedButton.classList.add("is-selected");
+        answers[currentQuestion] = selectedType;
+
+        window.setTimeout(function () {
+          if (currentQuestion === questions.length - 1) {
+            showResult();
+          } else {
+            moveToQuestion(currentQuestion + 1, "next");
+          }
+        }, reducedMotion ? 50 : 240);
+      }
+
+      startButton.addEventListener("click", function () {
+        if (transitioning) {
+          return;
+        }
+        transitioning = true;
+        currentQuestion = 0;
+        answers = [];
+        renderQuestion();
+        switchScreen(introScreen, questionScreen, function () {
+          transitioning = false;
+        });
+      });
+
+      backButton.addEventListener("click", function () {
+        if (transitioning) {
+          return;
+        }
+
+        if (currentQuestion === 0) {
+          transitioning = true;
+          switchScreen(questionScreen, introScreen, function () {
+            transitioning = false;
+          });
+          return;
+        }
+
+        moveToQuestion(currentQuestion - 1, "prev");
+      });
+
+      /* 분석 도구 연동 시 전역 함수로도 테스트할 수 있도록 노출합니다. */
+      window.calculateResult = calculateResult;
+    }());
+  </script>
+</body>
+</html>
