@@ -289,6 +289,7 @@
       font-weight: 700;
       line-height: 1.5;
       letter-spacing: -0.045em;
+      white-space: pre-line;
     }
 
     .options {
@@ -358,7 +359,7 @@
     }
 
     .result-intro {
-      padding: 24px 4px 36px;
+      padding: 15px 4px 15px;
       text-align: center;
     }
 
@@ -377,6 +378,7 @@
       font-size: 1.02rem;
       line-height: 1.8;
       letter-spacing: -0.035em;
+      white-space: pre-line;
     }
 
     .result-card {
@@ -448,7 +450,7 @@
     }
 
     .cta-area {
-      padding: 38px 3px 0;
+      padding: 15px 3px 0;
     }
 
     .bridge-copy {
@@ -459,6 +461,7 @@
       line-height: 1.7;
       letter-spacing: -0.035em;
       text-align: center;
+      white-space: pre-line;
     }
 
     .result-note {
@@ -566,7 +569,7 @@
       <div class="cta-area">
         <p class="bridge-copy" id="bridge-copy"></p>
         <a class="primary-button" id="btn_cta" href="https://chicment.com/">내 취향에 맞는 후기 더 보기</a>
-        <p class="result-note">비슷한 취향의 실제 구매 후기와 착용 모습을 확인해보세요</p>
+        <!-- <p class="result-note">비슷한 취향의 실제 구매 후기와 착용 모습을 확인해보세요</p> -->
       </div>
     </section>
   </main>
@@ -645,7 +648,7 @@
           }
         },
         {
-          question: "옷장을 열었을 때, 먼저 손이 가는 건?",
+          question: "옷장을 열었을 때,\n먼저 손이 가는 건?",
           options: {
             A: "로고 없이도 소재가 돋보이는 무채색 아이템",
             B: "시간이 지나도 멋스러운 클래식 아이템",
@@ -654,7 +657,7 @@
           }
         },
         {
-          question: "마음에 드는 가방이 두 개! 딱 하나만 고른다면?",
+          question: "마음에 드는 가방이 두 개!\n딱 하나만 고른다면?",
           options: {
             A: "직접 봤을 때 소재와 마감이 더 좋은 것",
             B: "몇 년 뒤에도 자연스럽게 들 수 있는 것",
@@ -663,7 +666,7 @@
           }
         },
         {
-          question: "새로 산 명품, SNS에 올린다면?",
+          question: "새로 산 명품,\nSNS에 올린다면?",
           options: {
             A: "브랜드가 잘 안 보여도 분위기가 예쁜 사진",
             B: "오래 입을 것 같은 클래식한 스타일링 사진",
@@ -672,7 +675,7 @@
           }
         },
         {
-          question: "사고 싶은 옷이 생겼는데, 주변 반응이 별로라면?",
+          question: "사고 싶은 옷이 생겼는데,\n주변 반응이 별로라면?",
           options: {
             A: "내가 직접 보고 퀄리티가 좋으면 산다",
             B: "오래 쓸 수 있는 제품인지 다시 생각해본다",
@@ -694,14 +697,14 @@
       var results = {
         A: {
           name: "조용한 럭셔리형",
-          definition: "로고보다 만듦새로 말하는, 절제된 취향의 소유자",
+          definition: "로고보다 만듦새로 말하는,\n절제된 취향의 소유자",
           features: [
             "과시보다 자기만족을 우선함",
             "소재와 디테일을 중요하게 봄",
             "은근한 스타일링을 선호함"
           ],
           keywords: "미니멀 · 무채색 · 절제된 실루엣",
-          bridge: "당신처럼 조용한 취향을 가진 사람들은 어떤 아이템을 선택했을까?"
+          bridge: "당신처럼 조용한 취향을 가진 사람들은\n어떤 아이템을 선택했을까?"
         },
         B: {
           name: "헤리티지 추구형",
@@ -712,7 +715,7 @@
             "전통과 장인정신을 신뢰함"
           ],
           keywords: "클래식 · 정통 · 소장가치",
-          bridge: "오래 두고 봐도 좋은 아이템, 실제 구매자들의 후기는?"
+          bridge: "오래 두고 봐도 좋은 아이템,\n실제 구매자들의 후기는?"
         },
         C: {
           name: "니치 브랜드 탐험형",
@@ -723,7 +726,7 @@
             "나만의 취향 표현을 중요하게 여김"
           ],
           keywords: "디스커버리 · 언더그라운드 · 나만의 발견",
-          bridge: "아직 많이 알려지지 않았지만, 이미 써본 사람들의 이야기"
+          bridge: "아직 많이 알려지지 않았지만,\n이미 써본 사람들의 이야기"
         },
         D: {
           name: "트렌드 세터형",
@@ -734,7 +737,7 @@
             "트렌드를 선도하는 데서 만족감을 느낌"
           ],
           keywords: "신상 · 화제 · 빠른 실행",
-          bridge: "요즘 가장 많이 언급되는 아이템, 실착 후기부터 확인해보기"
+          bridge: "요즘 가장 많이 언급되는 아이템,\n실착 후기부터 확인해보기"
         }
       };
 
