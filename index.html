@@ -60,7 +60,7 @@
     .app {
       position: relative;
       width: 100%;
-      max-width: 480px;
+      max-width: 520px;
       min-height: 100vh;
       overflow: hidden;
       background: var(--paper);
@@ -107,13 +107,13 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      min-height: 58px;
-      padding: 16px 22px;
+      min-height: 64px;
+      padding: 18px 24px;
       border: 1px solid var(--accent);
       border-radius: 3px;
       background: var(--accent);
       color: var(--white);
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       font-weight: 700;
       letter-spacing: -0.01em;
       text-decoration: none;
@@ -140,43 +140,43 @@
       justify-content: space-between;
       padding:
         max(34px, env(safe-area-inset-top))
-        24px
-        max(24px, env(safe-area-inset-bottom));
+        30px
+        max(30px, env(safe-area-inset-bottom));
     }
 
     .intro-copy {
       margin: auto 0;
-      padding: 48px 0 38px;
+      padding: 64px 0 52px;
     }
 
     .intro-title {
-      max-width: 330px;
+      max-width: 390px;
       margin: 0;
       font-family: inherit;
-      font-size: clamp(2.2rem, 10vw, 3.1rem);
+      font-size: clamp(2.5rem, 11vw, 3.5rem);
       font-weight: 700;
       line-height: 1.18;
       letter-spacing: -0.045em;
     }
 
     .intro-description {
-      max-width: 300px;
-      margin: 22px 0 0;
+      max-width: 380px;
+      margin: 30px 0 0;
       color: var(--muted);
-      font-size: 0.94rem;
-      line-height: 1.75;
+      font-size: 1.08rem;
+      line-height: 1.85;
       letter-spacing: -0.025em;
     }
 
     .intro-footer {
       display: grid;
-      gap: 14px;
+      gap: 18px;
     }
 
     .time-hint {
       margin: 0;
       color: var(--muted);
-      font-size: 0.72rem;
+      font-size: 0.82rem;
       letter-spacing: 0.08em;
       text-align: center;
     }
@@ -185,8 +185,8 @@
     .question-screen {
       padding:
         max(20px, env(safe-area-inset-top))
-        20px
-        max(20px, env(safe-area-inset-bottom));
+        28px
+        max(28px, env(safe-area-inset-bottom));
     }
 
     .question-header {
@@ -198,7 +198,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 42px;
+      min-height: 48px;
     }
 
     .back-button {
@@ -206,11 +206,11 @@
       align-items: center;
       gap: 7px;
       min-width: 54px;
-      min-height: 42px;
+      min-height: 48px;
       padding: 0;
       background: transparent;
       color: var(--muted);
-      font-size: 0.76rem;
+      font-size: 0.88rem;
       cursor: pointer;
     }
 
@@ -227,7 +227,7 @@
       margin: 0;
       color: var(--muted);
       font-family: inherit;
-      font-size: 0.76rem;
+      font-size: 0.86rem;
       font-variant-numeric: tabular-nums;
       letter-spacing: 0.02em;
       text-align: right;
@@ -235,14 +235,14 @@
 
     .progress-count strong {
       color: var(--ink);
-      font-size: 0.94rem;
+      font-size: 1.05rem;
       font-weight: 500;
     }
 
     .progress-track {
       width: 100%;
-      height: 2px;
-      margin-top: 8px;
+      height: 3px;
+      margin-top: 12px;
       overflow: hidden;
       background: var(--line);
     }
@@ -256,7 +256,7 @@
     }
 
     .question-body {
-      padding-top: clamp(34px, 7vh, 64px);
+      padding-top: clamp(48px, 9vh, 84px);
       opacity: 1;
       transform: translateX(0);
       transition: opacity 150ms ease, transform 180ms var(--ease);
@@ -283,29 +283,29 @@
     }
 
     .question-title {
-      min-height: 58px;
+      min-height: 72px;
       margin: 0;
-      font-size: clamp(1.13rem, 5vw, 2rem);
-      font-weight: 650;
-      line-height: 1.42;
+      font-size: clamp(1.55rem, 8vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.5;
       letter-spacing: -0.045em;
     }
 
     .options {
       display: grid;
       gap: 0;
-      margin-top: clamp(27px, 5vh, 42px);
+      margin-top: clamp(38px, 7vh, 60px);
       border-top: 1px solid var(--line);
     }
 
     .option {
       position: relative;
       display: grid;
-      grid-template-columns: 30px 1fr;
+      grid-template-columns: 40px 1fr;
       align-items: center;
       width: 100%;
-      min-height: 72px;
-      padding: 14px 4px;
+      min-height: 92px;
+      padding: 24px 8px;
       overflow: hidden;
       border: 0;
       border-bottom: 1px solid var(--line);
@@ -337,70 +337,67 @@
 
     .option-letter {
       font-family: inherit;
-      font-size: 0.82rem;
+      font-size: 0.95rem;
       font-weight: 700;
     }
 
     .option-text {
-      display: -webkit-box;
-      overflow: hidden;
-      font-size: clamp(0.88rem, 3.65vw, 0.95rem);
+      display: block;
+      font-size: clamp(1rem, 4vw, 1.12rem);
       font-weight: 550;
-      line-height: 1.5;
+      line-height: 1.65;
       letter-spacing: -0.025em;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
     }
 
     /* Result */
     .result-screen {
       padding:
         max(32px, env(safe-area-inset-top))
-        20px
-        max(24px, env(safe-area-inset-bottom));
+        28px
+        max(30px, env(safe-area-inset-bottom));
     }
 
     .result-intro {
-      padding: 14px 4px 24px;
+      padding: 24px 4px 36px;
       text-align: center;
     }
 
     .result-type {
       margin: 0;
       font-family: inherit;
-      font-size: clamp(1.8rem, 8vw, 2.3rem);
+      font-size: clamp(2.1rem, 9vw, 2.7rem);
       font-weight: 700;
       letter-spacing: -0.04em;
     }
 
     .result-definition {
       max-width: 340px;
-      margin: 13px auto 0;
+      margin: 20px auto 0;
       color: var(--muted);
-      font-size: 0.89rem;
-      line-height: 1.65;
+      font-size: 1.02rem;
+      line-height: 1.8;
       letter-spacing: -0.035em;
     }
 
     .result-card {
-      padding: 25px 22px;
+      padding: 32px 28px;
       border: 1px solid var(--line);
       border-radius: 4px;
       background: var(--card);
     }
 
     .card-heading {
-      margin: 0 0 15px;
+      margin: 0 0 22px;
       color: var(--ink);
       font-family: inherit;
-      font-size: 0.88rem;
+      font-size: 1.05rem;
       font-weight: 700;
       letter-spacing: -0.02em;
     }
 
     .feature-list {
       display: grid;
-      gap: 12px;
+      gap: 18px;
       margin: 0;
       padding: 0;
       list-style: none;
@@ -408,9 +405,9 @@
 
     .feature-list li {
       position: relative;
-      padding-left: 16px;
-      font-size: 0.86rem;
-      line-height: 1.55;
+      padding-left: 20px;
+      font-size: 1rem;
+      line-height: 1.7;
       letter-spacing: -0.03em;
     }
 
@@ -426,16 +423,16 @@
     }
 
     .keyword-block {
-      margin-top: 20px;
-      padding-top: 17px;
+      margin-top: 28px;
+      padding-top: 24px;
       border-top: 1px solid var(--line);
     }
 
     .keyword-label {
       display: block;
-      margin-bottom: 7px;
+      margin-bottom: 10px;
       color: var(--muted);
-      font-size: 0.75rem;
+      font-size: 0.88rem;
       font-weight: 600;
       letter-spacing: -0.01em;
     }
@@ -444,30 +441,30 @@
       margin: 0;
       color: var(--accent-dark);
       font-family: inherit;
-      font-size: 0.94rem;
+      font-size: 1.08rem;
       font-weight: 700;
       line-height: 1.55;
       letter-spacing: -0.025em;
     }
 
     .cta-area {
-      padding: 27px 3px 0;
+      padding: 38px 3px 0;
     }
 
     .bridge-copy {
       max-width: 350px;
-      margin: 0 auto 15px;
+      margin: 0 auto 22px;
       color: var(--muted);
-      font-size: 0.8rem;
-      line-height: 1.55;
+      font-size: 0.95rem;
+      line-height: 1.7;
       letter-spacing: -0.035em;
       text-align: center;
     }
 
     .result-note {
-      margin: 12px 0 0;
+      margin: 16px 0 0;
       color: var(--muted);
-      font-size: 0.72rem;
+      font-size: 0.82rem;
       letter-spacing: -0.01em;
       text-align: center;
     }
@@ -489,18 +486,17 @@
 
     @media (max-height: 700px) {
       .question-body {
-        padding-top: 25px;
+        padding-top: 32px;
       }
 
       .options {
-        gap: 8px;
-        margin-top: 22px;
+        margin-top: 28px;
       }
 
       .option {
-        min-height: 60px;
-        padding-top: 9px;
-        padding-bottom: 9px;
+        min-height: 76px;
+        padding-top: 18px;
+        padding-bottom: 18px;
       }
     }
 
@@ -581,57 +577,114 @@
 
       var TYPES = ["A", "B", "C", "D"];
 
+      // var questions = [
+      //   {
+      //     question: "옷장을 열었을 때, 당신이 먼저 손이 가는 아이템은?",
+      //     options: {
+      //       A: "각 잡힌 무채색 아이템, 로고 없이도 티가 나는 소재감",
+      //       B: "오래 신어도 질리지 않는, 브랜드 역사가 긴 클래식한 아이템",
+      //       C: "남들은 잘 모르는 브랜드지만 나만 아는 디자이너의 아이템",
+      //       D: "이번 시즌 화제가 된, 지금 가장 핫한 아이템"
+      //     }
+      //   },
+      //   {
+      //     question: "SNS에 명품 관련 게시물을 올린다면, 당신의 방식은?",
+      //     options: {
+      //       A: "브랜드보다 스타일링과 무드 위주로, 은근하게",
+      //       B: "오래 써온 아이템의 세월과 애착을 보여주는 스토리 중심",
+      //       C: "\"이거 아는 사람?\" 싶은 발견의 재미를 공유",
+      //       D: "신상 언박싱이나 착용샷을 빠르게 업로드"
+      //     }
+      //   },
+      //   {
+      //     question: "새로운 브랜드를 알게 됐을 때, 당신의 반응은?",
+      //     options: {
+      //       A: "로고보다 소재와 만듦새부터 확인한다",
+      //       B: "브랜드가 걸어온 히스토리와 장인정신을 찾아본다",
+      //       C: "아직 대중적이지 않은 브랜드라는 점에 끌린다",
+      //       D: "지금 얼마나 화제가 되고 있는지부터 검색한다"
+      //     }
+      //   },
+      //   {
+      //     question: "쇼핑할 때 가장 우선순위에 두는 가치는?",
+      //     options: {
+      //       A: "티 나지 않는 고급스러움",
+      //       B: "오래 두고 써도 가치가 유지되는 것",
+      //       C: "나만의 취향을 드러낼 수 있는 것",
+      //       D: "지금 이 순간 가장 주목받는 것"
+      //     }
+      //   },
+      //   {
+      //     question: "친구가 \"이 브랜드 어때?\"라고 물으면, 당신의 대답 스타일은?",
+      //     options: {
+      //       A: "\"디자인이 절제돼 있어서 좋아 보이는데\"",
+      //       B: "\"역사가 오래된 만큼 믿을 만하지\"",
+      //       C: "\"아직 많이 안 알려졌는데 한번 찾아봐\"",
+      //       D: "\"요즘 다들 그거 얘기하더라\""
+      //     }
+      //   },
+      //   {
+      //     question: "명품을 산 뒤, 가장 뿌듯함을 느끼는 순간은?",
+      //     options: {
+      //       A: "아무도 눈치채지 못하지만 나는 아는 디테일을 발견할 때",
+      //       B: "이 아이템이 몇 년이 지나도 변함없이 좋을 거라는 확신이 들 때",
+      //       C: "남들이 \"이거 뭐야?\"라고 물어볼 때",
+      //       D: "트렌드를 가장 먼저 시도했다는 만족감이 들 때"
+      //     }
+      //   }
+      // ];
+
       var questions = [
         {
-          question: "옷장을 열었을 때, 당신이 먼저 손이 가는 아이템은?",
+          question: "옷을 살 때 가장 중요하게 보는 건?",
           options: {
-            A: "각 잡힌 무채색 아이템, 로고 없이도 티가 나는 소재감",
-            B: "오래 신어도 질리지 않는, 브랜드 역사가 긴 클래식한 아이템",
-            C: "남들은 잘 모르는 브랜드지만 나만 아는 디자이너의 아이템",
-            D: "이번 시즌 화제가 된, 지금 가장 핫한 아이템"
+            A: "드러내지 않아도 은은하게 고급스러운지",
+            B: "시간이 지나도 가치가 유지되는지",
+            C: "나만의 개성과 취향을 보여주는지",
+            D: "지금 가장 트렌디한 스타일인지"
           }
         },
         {
-          question: "SNS에 명품 관련 게시물을 올린다면, 당신의 방식은?",
+          question: "옷장을 열었을 때, 먼저 손이 가는 건?",
           options: {
-            A: "브랜드보다 스타일링과 무드 위주로, 은근하게",
-            B: "오래 써온 아이템의 세월과 애착을 보여주는 스토리 중심",
-            C: "\"이거 아는 사람?\" 싶은 발견의 재미를 공유",
-            D: "신상 언박싱이나 착용샷을 빠르게 업로드"
+            A: "로고 없이도 소재가 돋보이는 무채색 아이템",
+            B: "시간이 지나도 멋스러운 클래식 아이템",
+            C: "아직 잘 알려지지 않은 디자이너 아이템",
+            D: "이번 시즌 가장 주목받는 아이템"
           }
         },
         {
-          question: "새로운 브랜드를 알게 됐을 때, 당신의 반응은?",
+          question: "마음에 드는 가방이 두 개! 딱 하나만 고른다면?",
           options: {
-            A: "로고보다 소재와 만듦새부터 확인한다",
-            B: "브랜드가 걸어온 히스토리와 장인정신을 찾아본다",
-            C: "아직 대중적이지 않은 브랜드라는 점에 끌린다",
-            D: "지금 얼마나 화제가 되고 있는지부터 검색한다"
+            A: "직접 봤을 때 소재와 마감이 더 좋은 것",
+            B: "몇 년 뒤에도 자연스럽게 들 수 있는 것",
+            C: "다른 사람과 잘 겹치지 않는 것",
+            D: "지금 가장 끌리는 디자인인 것"
           }
         },
         {
-          question: "쇼핑할 때 가장 우선순위에 두는 가치는?",
+          question: "새로 산 명품, SNS에 올린다면?",
           options: {
-            A: "티 나지 않는 고급스러움",
-            B: "오래 두고 써도 가치가 유지되는 것",
-            C: "나만의 취향을 드러낼 수 있는 것",
-            D: "지금 이 순간 가장 주목받는 것"
+            A: "브랜드가 잘 안 보여도 분위기가 예쁜 사진",
+            B: "오래 입을 것 같은 클래식한 스타일링 사진",
+            C: "“이거 어디 거야?” 소리 나올 만한 사진",
+            D: "신상 아이템이 확실히 돋보이는 사진"
           }
         },
         {
-          question: "친구가 \"이 브랜드 어때?\"라고 물으면, 당신의 대답 스타일은?",
+          question: "사고 싶은 옷이 생겼는데, 주변 반응이 별로라면?",
           options: {
-            A: "\"디자인이 절제돼 있어서 좋아 보이는데\"",
-            B: "\"역사가 오래된 만큼 믿을 만하지\"",
-            C: "\"아직 많이 안 알려졌는데 한번 찾아봐\"",
-            D: "\"요즘 다들 그거 얘기하더라\""
+            A: "내가 직접 보고 퀄리티가 좋으면 산다",
+            B: "오래 쓸 수 있는 제품인지 다시 생각해본다",
+            C: "오히려 남들과 다른 선택이라 더 끌린다",
+            D: "요즘 반응이 좋은 다른 제품도 찾아본다"
           }
         },
         {
-          question: "명품을 산 뒤, 가장 뿌듯함을 느끼는 순간은?",
+          question: "명품을 산 뒤 가장 만족스러운 순간은?",
           options: {
-            A: "아무도 눈치채지 못하지만 나는 아는 디테일을 발견할 때",
-            B: "이 아이템이 몇 년이 지나도 변함없이 좋을 거라는 확신이 들 때",
+            A: "나만 알아보는 섬세한 디테일을 발견할 때",
+            B: "오래도록 질리지 않고 쓰겠다는 확신이 들 때",
             C: "남들이 \"이거 뭐야?\"라고 물어볼 때",
             D: "트렌드를 가장 먼저 시도했다는 만족감이 들 때"
           }
