@@ -7,6 +7,7 @@
   <meta name="description" content="6개의 질문으로 알아보는 나의 럭셔리 취향 DNA 테스트">
   <title>나의 럭셔리 취향 DNA 테스트</title>
   <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <style>
     :root {
@@ -382,7 +383,7 @@
     }
 
     .result-card {
-      padding: 32px 28px;
+      padding: 20px 28px;
       border: 1px solid var(--line);
       border-radius: 4px;
       background: var(--card);
@@ -399,7 +400,7 @@
 
     .feature-list {
       display: grid;
-      gap: 18px;
+      gap: 10px;
       margin: 0;
       padding: 0;
       list-style: none;
@@ -425,8 +426,8 @@
     }
 
     .keyword-block {
-      margin-top: 28px;
-      padding-top: 24px;
+      margin-top: 15px;
+      padding-top: 20px;
       border-top: 1px solid var(--line);
     }
 
@@ -451,6 +452,22 @@
 
     .cta-area {
       padding: 15px 3px 0;
+    }
+
+    .save-button {
+      margin-bottom: 12px;
+      border-color: var(--accent);
+      background: transparent;
+      color: var(--accent-dark);
+    }
+
+    .save-button:active {
+      background: rgba(118, 84, 90, 0.08);
+    }
+
+    .save-button:disabled {
+      cursor: wait;
+      opacity: 0.6;
     }
 
     .bridge-copy {
@@ -552,23 +569,27 @@
     </section>
 
     <section class="screen result-screen" id="result-screen" aria-labelledby="result-type" hidden>
-      <div class="result-intro">
-        <h2 class="result-type" id="result-type"></h2>
-        <p class="result-definition" id="result-definition"></p>
-      </div>
-
-      <article class="result-card">
-        <h3 class="card-heading">이런 취향을 가졌어요</h3>
-        <ul class="feature-list" id="feature-list"></ul>
-        <div class="keyword-block">
-          <span class="keyword-label">어울리는 키워드</span>
-          <p class="result-keywords" id="result-keywords"></p>
+      <div id="result-capture">
+        <div class="result-intro">
+          <h2 class="result-type" id="result-type"></h2>
+          <p class="result-definition" id="result-definition"></p>
         </div>
-      </article>
+
+        <article class="result-card">
+          <h3 class="card-heading">이런 취향을 가졌어요</h3>
+          <ul class="feature-list" id="feature-list"></ul>
+          <div class="keyword-block">
+            <span class="keyword-label">어울리는 키워드</span>
+            <p class="result-keywords" id="result-keywords"></p>
+          </div>
+        </article>
+      </div>
 
       <div class="cta-area">
         <p class="bridge-copy" id="bridge-copy"></p>
         <a class="primary-button" id="btn_cta" href="https://chicment.com/">내 취향에 맞는 후기 더 보기</a>
+        <button class="primary-button save-button" id="btn_save_image" type="button">결과 이미지 저장하기</button>
+        
         <!-- <p class="result-note">비슷한 취향의 실제 구매 후기와 착용 모습을 확인해보세요</p> -->
       </div>
     </section>
@@ -871,6 +892,47 @@
         });
       }
 
+      function saveResultImage() {
+        var $button = $("#btn_save_image");
+        var fileName = $("#result-type").text() + "-결과.png";
+
+        $button.prop("disabled", true).text("이미지 만드는 중");
+
+        html2canvas($("#result-capture")[0], {
+          scale: 2,
+          backgroundColor: "#f3f0ea",
+          useCORS: true
+        }).then(function (canvas) {
+          return new Promise(function (resolve, reject) {
+            canvas.toBlob(function (blob) {
+              if (!blob) {
+                reject(new Error("이미지 생성에 실패했습니다."));
+                return;
+              }
+
+              var imageUrl = URL.createObjectURL(blob);
+              var $download = $("<a>", {
+                href: imageUrl,
+                download: fileName
+              }).appendTo("body");
+
+              $download[0].click();
+              $download.remove();
+
+              window.setTimeout(function () {
+                URL.revokeObjectURL(imageUrl);
+              }, 1000);
+
+              resolve();
+            }, "image/png");
+          });
+        }).catch(function () {
+          alert("이미지를 저장하지 못했습니다. 다시 시도해주세요.");
+        }).finally(function () {
+          $button.prop("disabled", false).text("결과 이미지 저장하기");
+        });
+      }
+
       function selectAnswer(event) {
         if (transitioning) {
           return;
@@ -923,6 +985,7 @@
       });
 
       $("#options").on("click", ".option", selectAnswer);
+      $("#btn_save_image").on("click", saveResultImage);
 
       /* 분석 도구 연동 시 전역 함수로도 테스트할 수 있도록 노출합니다. */
       window.calculateResult = calculateResult;
