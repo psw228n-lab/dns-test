@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#f3f0ea">
   <meta name="description" content="6개의 질문으로 알아보는 나의 럭셔리 취향 DNA 테스트">
   <title>나의 럭셔리 취향 DNA 테스트</title>
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
   <style>
     :root {
@@ -284,7 +285,7 @@
     .question-title {
       min-height: 58px;
       margin: 0;
-      font-size: clamp(1.13rem, 5vw, 1.45rem);
+      font-size: clamp(1.13rem, 5vw, 2rem);
       font-weight: 650;
       line-height: 1.42;
       letter-spacing: -0.045em;
@@ -546,7 +547,7 @@
       </header>
 
       <div class="question-body" id="question-body">
-        <h2 class="question-title" id="question-title"></h2>
+        <h1 class="question-title" id="question-title"></h1>
         <div class="options" id="options" role="group" aria-labelledby="question-title"></div>
       </div>
     </section>
@@ -568,14 +569,14 @@
 
       <div class="cta-area">
         <p class="bridge-copy" id="bridge-copy"></p>
-        <a class="primary-button" id="btn_cta" href="[FINAL_URL]">내 취향에 맞는 후기 더 보기</a>
+        <a class="primary-button" id="btn_cta" href="https://chicment.com/">내 취향에 맞는 후기 더 보기</a>
         <p class="result-note">비슷한 취향의 실제 구매 후기와 착용 모습을 확인해보세요</p>
       </div>
     </section>
   </main>
 
   <script>
-    (function () {
+    $(function () {
       "use strict";
 
       var TYPES = ["A", "B", "C", "D"];
@@ -684,17 +685,6 @@
         }
       };
 
-      var introScreen = document.getElementById("intro-screen");
-      var questionScreen = document.getElementById("question-screen");
-      var resultScreen = document.getElementById("result-screen");
-      var questionBody = document.getElementById("question-body");
-      var questionTitle = document.getElementById("question-title");
-      var optionsContainer = document.getElementById("options");
-      var progressFill = document.getElementById("progress-fill");
-      var progressTrack = document.querySelector(".progress-track");
-      var currentCount = document.getElementById("current-count");
-      var startButton = document.getElementById("btn_test_start");
-      var backButton = document.getElementById("back-button");
       var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       var currentQuestion = 0;
@@ -732,14 +722,11 @@
       }
 
       function switchScreen(fromScreen, toScreen, onShown) {
-        fromScreen.classList.add("is-exiting");
+        $(fromScreen).addClass("is-exiting");
 
         window.setTimeout(function () {
-          fromScreen.hidden = true;
-          fromScreen.classList.remove("is-exiting");
-          toScreen.hidden = false;
-          toScreen.scrollTop = 0;
-          toScreen.classList.add("is-entering");
+          $(fromScreen).prop("hidden", true).removeClass("is-exiting");
+          $(toScreen).prop("hidden", false).scrollTop(0).addClass("is-entering");
 
           if (typeof onShown === "function") {
             onShown();
@@ -747,7 +734,7 @@
 
           window.requestAnimationFrame(function () {
             window.requestAnimationFrame(function () {
-              toScreen.classList.remove("is-entering");
+              $(toScreen).removeClass("is-entering");
             });
           });
         }, reducedMotion ? 20 : 180);
@@ -755,41 +742,30 @@
 
       function updateProgress() {
         var number = currentQuestion + 1;
-        currentCount.textContent = String(number);
-        progressFill.style.width = ((number / questions.length) * 100) + "%";
-        progressTrack.setAttribute("aria-valuenow", String(number));
+        $("#current-count").text(number);
+        $("#progress-fill").css("width", ((number / questions.length) * 100) + "%");
+        $(".progress-track").attr("aria-valuenow", number);
       }
 
       function renderQuestion() {
         var item = questions[currentQuestion];
-        questionTitle.textContent = item.question;
-        optionsContainer.innerHTML = "";
+        $("#question-title").text(item.question);
+        $("#options").empty();
 
         TYPES.forEach(function (type) {
-          var button = document.createElement("button");
-          var letter = document.createElement("span");
-          var text = document.createElement("span");
+          var $button = $("<button>", {
+            type: "button",
+            class: "option" + (answers[currentQuestion] === type ? " was-selected" : ""),
+            "data-type": type,
+            "aria-label": type + ". " + item.options[type]
+          });
 
-          button.type = "button";
-          button.className = "option";
-          button.dataset.type = type;
-          button.setAttribute("aria-label", type + ". " + item.options[type]);
+          $button.append(
+            $("<span>", { class: "option-letter", text: type, "aria-hidden": "true" }),
+            $("<span>", { class: "option-text", text: item.options[type] })
+          );
 
-          if (answers[currentQuestion] === type) {
-            button.classList.add("was-selected");
-          }
-
-          letter.className = "option-letter";
-          letter.textContent = type;
-          letter.setAttribute("aria-hidden", "true");
-
-          text.className = "option-text";
-          text.textContent = item.options[type];
-
-          button.appendChild(letter);
-          button.appendChild(text);
-          button.addEventListener("click", selectAnswer);
-          optionsContainer.appendChild(button);
+          $("#options").append($button);
         });
 
         updateProgress();
@@ -800,17 +776,16 @@
         var enteringClass = direction === "prev" ? "is-entering-prev" : "is-entering-next";
 
         transitioning = true;
-        questionBody.classList.add(leavingClass);
+        $("#question-body").addClass(leavingClass);
 
         window.setTimeout(function () {
           currentQuestion = nextIndex;
           renderQuestion();
-          questionBody.classList.remove(leavingClass);
-          questionBody.classList.add(enteringClass);
+          $("#question-body").removeClass(leavingClass).addClass(enteringClass);
 
           window.requestAnimationFrame(function () {
             window.requestAnimationFrame(function () {
-              questionBody.classList.remove(enteringClass);
+              $("#question-body").removeClass(enteringClass);
               window.setTimeout(function () {
                 transitioning = false;
               }, reducedMotion ? 10 : 170);
@@ -821,29 +796,22 @@
 
       function renderResult(type) {
         var result = results[type];
-        var featureList = document.getElementById("feature-list");
-
-        document.getElementById("result-type").textContent = result.name;
-        document.getElementById("result-definition").textContent = result.definition;
-        document.getElementById("result-keywords").textContent = result.keywords;
-        document.getElementById("bridge-copy").textContent = result.bridge;
-        resultScreen.dataset.result = type;
-
-        featureList.innerHTML = "";
-        result.features.forEach(function (feature) {
-          var item = document.createElement("li");
-          item.textContent = feature;
-          featureList.appendChild(item);
-        });
+        $("#result-type").text(result.name);
+        $("#result-definition").text(result.definition);
+        $("#result-keywords").text(result.keywords);
+        $("#bridge-copy").text(result.bridge);
+        $("#result-screen").attr("data-result", type);
+        $("#feature-list").html(result.features.map(function (feature) {
+          return "<li>" + feature + "</li>";
+        }).join(""));
       }
 
       function showResult() {
         var type = calculateResult(answers);
         renderResult(type);
-        switchScreen(questionScreen, resultScreen, function () {
+        switchScreen("#question-screen", "#result-screen", function () {
           transitioning = false;
-          resultScreen.setAttribute("tabindex", "-1");
-          resultScreen.focus();
+          $("#result-screen").attr("tabindex", "-1").trigger("focus");
         });
       }
 
@@ -853,16 +821,11 @@
         }
 
         transitioning = true;
-        var selectedButton = event.currentTarget;
-        var selectedType = selectedButton.dataset.type;
-        var optionButtons = optionsContainer.querySelectorAll(".option");
+        var $selectedButton = $(event.currentTarget);
+        var selectedType = $selectedButton.data("type");
+        $("#options .option").prop("disabled", true).removeClass("is-selected was-selected");
 
-        optionButtons.forEach(function (button) {
-          button.disabled = true;
-          button.classList.remove("is-selected", "was-selected");
-        });
-
-        selectedButton.classList.add("is-selected");
+        $selectedButton.addClass("is-selected");
         answers[currentQuestion] = selectedType;
 
         window.setTimeout(function () {
@@ -874,7 +837,7 @@
         }, reducedMotion ? 50 : 240);
       }
 
-      startButton.addEventListener("click", function () {
+      $("#btn_test_start").on("click", function () {
         if (transitioning) {
           return;
         }
@@ -882,19 +845,19 @@
         currentQuestion = 0;
         answers = [];
         renderQuestion();
-        switchScreen(introScreen, questionScreen, function () {
+        switchScreen("#intro-screen", "#question-screen", function () {
           transitioning = false;
         });
       });
 
-      backButton.addEventListener("click", function () {
+      $("#back-button").on("click", function () {
         if (transitioning) {
           return;
         }
 
         if (currentQuestion === 0) {
           transitioning = true;
-          switchScreen(questionScreen, introScreen, function () {
+          switchScreen("#question-screen", "#intro-screen", function () {
             transitioning = false;
           });
           return;
@@ -903,9 +866,11 @@
         moveToQuestion(currentQuestion - 1, "prev");
       });
 
+      $("#options").on("click", ".option", selectAnswer);
+
       /* 분석 도구 연동 시 전역 함수로도 테스트할 수 있도록 노출합니다. */
       window.calculateResult = calculateResult;
-    }());
+    });
   </script>
 </body>
 </html>
