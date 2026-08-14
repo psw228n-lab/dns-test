@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html lang="ko">
 <head>
   <meta charset="utf-8">
@@ -14,12 +13,12 @@
       --accent: #76545a;
       --accent-dark: #5c3e43;
       --ink: #25231f;
-      --muted: #77726b;
+      --muted: #625e58;
       --line: #d9d4cc;
       --paper: #f3f0ea;
       --card: #fbfaf7;
       --white: #ffffff;
-      --shadow: 0 24px 70px rgba(30, 26, 22, 0.12);
+      --shadow: 0 12px 32px -20px rgba(30, 26, 22, 0.28);
       --ease: cubic-bezier(0.22, 0.72, 0.3, 1);
     }
 
@@ -63,9 +62,7 @@
       max-width: 480px;
       min-height: 100vh;
       overflow: hidden;
-      background:
-        radial-gradient(circle at 100% 0%, rgba(118, 84, 90, 0.09), transparent 30%),
-        var(--paper);
+      background: var(--paper);
     }
 
     @supports (min-height: 100dvh) {
@@ -104,16 +101,6 @@
       transform: translateY(10px);
     }
 
-    .eyebrow {
-      margin: 0;
-      color: var(--accent);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
-
     .primary-button {
       display: flex;
       align-items: center;
@@ -130,12 +117,12 @@
       letter-spacing: -0.01em;
       text-decoration: none;
       cursor: pointer;
-      transition: background 140ms ease, transform 120ms ease, box-shadow 160ms ease;
+      transition: background 140ms ease, border-color 140ms ease;
     }
 
     .primary-button:active {
-      transform: scale(0.985);
       background: var(--accent-dark);
+      border-color: var(--accent-dark);
     }
 
     .primary-button:focus-visible,
@@ -156,42 +143,19 @@
         max(24px, env(safe-area-inset-bottom));
     }
 
-    .intro-topline {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .intro-topline::after {
-      width: 42px;
-      height: 1px;
-      background: var(--accent);
-      content: "";
-    }
-
     .intro-copy {
       margin: auto 0;
-      padding: 52px 0 42px;
-    }
-
-    .intro-index {
-      display: block;
-      margin-bottom: 24px;
-      color: var(--accent);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 4rem;
-      line-height: 0.8;
-      opacity: 0.2;
+      padding: 48px 0 38px;
     }
 
     .intro-title {
       max-width: 330px;
       margin: 0;
-      font-family: Georgia, "Times New Roman", "Batang", serif;
-      font-size: clamp(2.25rem, 10.5vw, 3.25rem);
-      font-weight: 500;
+      font-family: inherit;
+      font-size: clamp(2.2rem, 10vw, 3.1rem);
+      font-weight: 700;
       line-height: 1.18;
-      letter-spacing: -0.055em;
+      letter-spacing: -0.045em;
     }
 
     .intro-description {
@@ -261,9 +225,10 @@
       min-width: 48px;
       margin: 0;
       color: var(--muted);
-      font-family: Georgia, "Times New Roman", serif;
+      font-family: inherit;
       font-size: 0.76rem;
-      letter-spacing: 0.12em;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
       text-align: right;
     }
 
@@ -316,15 +281,6 @@
       transform: translateX(-18px);
     }
 
-    .question-label {
-      margin: 0 0 13px;
-      color: var(--accent);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-    }
-
     .question-title {
       min-height: 58px;
       margin: 0;
@@ -336,52 +292,41 @@
 
     .options {
       display: grid;
-      gap: 10px;
+      gap: 0;
       margin-top: clamp(27px, 5vh, 42px);
+      border-top: 1px solid var(--line);
     }
 
     .option {
       position: relative;
       display: grid;
-      grid-template-columns: 29px 1fr 16px;
+      grid-template-columns: 30px 1fr;
       align-items: center;
       width: 100%;
-      min-height: 67px;
-      padding: 12px 14px;
+      min-height: 72px;
+      padding: 14px 4px;
       overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 3px;
-      background: rgba(251, 250, 247, 0.82);
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
       color: var(--ink);
       text-align: left;
       cursor: pointer;
       transition:
         border-color 130ms ease,
         background 130ms ease,
-        color 130ms ease,
-        transform 120ms ease;
-    }
-
-    .option::after {
-      width: 7px;
-      height: 7px;
-      justify-self: end;
-      border-top: 1px solid currentColor;
-      border-right: 1px solid currentColor;
-      content: "";
-      opacity: 0.35;
-      transform: rotate(45deg);
+        color 130ms ease;
     }
 
     .option:active {
-      transform: scale(0.992);
+      background: rgba(118, 84, 90, 0.06);
     }
 
     .option.is-selected {
       border-color: var(--accent);
       background: var(--accent);
       color: var(--white);
-      transform: scale(0.992);
     }
 
     .option.was-selected:not(.is-selected) {
@@ -390,18 +335,18 @@
     }
 
     .option-letter {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 0.78rem;
+      font-family: inherit;
+      font-size: 0.82rem;
       font-weight: 700;
     }
 
     .option-text {
       display: -webkit-box;
       overflow: hidden;
-      font-size: clamp(0.77rem, 3.35vw, 0.87rem);
+      font-size: clamp(0.88rem, 3.65vw, 0.95rem);
       font-weight: 550;
-      line-height: 1.45;
-      letter-spacing: -0.04em;
+      line-height: 1.5;
+      letter-spacing: -0.025em;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
     }
@@ -415,30 +360,16 @@
     }
 
     .result-intro {
-      padding: 6px 4px 24px;
+      padding: 14px 4px 24px;
       text-align: center;
-    }
-
-    .result-ornament {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 52px;
-      height: 52px;
-      margin: 18px auto 16px;
-      border: 1px solid var(--accent);
-      border-radius: 50%;
-      color: var(--accent);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.2rem;
     }
 
     .result-type {
       margin: 0;
-      font-family: Georgia, "Times New Roman", "Batang", serif;
+      font-family: inherit;
       font-size: clamp(1.8rem, 8vw, 2.3rem);
-      font-weight: 500;
-      letter-spacing: -0.05em;
+      font-weight: 700;
+      letter-spacing: -0.04em;
     }
 
     .result-definition {
@@ -455,17 +386,15 @@
       border: 1px solid var(--line);
       border-radius: 4px;
       background: var(--card);
-      box-shadow: 0 14px 34px rgba(30, 26, 22, 0.055);
     }
 
     .card-heading {
       margin: 0 0 15px;
-      color: var(--accent);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 0.68rem;
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 0.88rem;
       font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
+      letter-spacing: -0.02em;
     }
 
     .feature-list {
@@ -505,17 +434,17 @@
       display: block;
       margin-bottom: 7px;
       color: var(--muted);
-      font-size: 0.67rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
     }
 
     .result-keywords {
       margin: 0;
       color: var(--accent-dark);
-      font-family: Georgia, "Times New Roman", "Batang", serif;
+      font-family: inherit;
       font-size: 0.94rem;
-      font-weight: 600;
+      font-weight: 700;
       line-height: 1.55;
       letter-spacing: -0.025em;
     }
@@ -536,9 +465,9 @@
 
     .result-note {
       margin: 12px 0 0;
-      color: #99938b;
-      font-size: 0.66rem;
-      letter-spacing: 0.05em;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: -0.01em;
       text-align: center;
     }
 
@@ -589,14 +518,9 @@
 <body>
   <main class="app" id="app">
     <section class="screen intro-screen" id="intro-screen" aria-labelledby="intro-title">
-      <div class="intro-topline">
-        <p class="eyebrow">Taste Profile</p>
-      </div>
-
       <div class="intro-copy">
-        <span class="intro-index" aria-hidden="true">06</span>
         <h1 class="intro-title" id="intro-title">나의 럭셔리<br>취향 DNA 테스트</h1>
-        <p class="intro-description">6개의 선택으로 발견하는<br>나만의 럭셔리 취향 코드</p>
+        <p class="intro-description">6개의 질문에 답하고<br>내가 자주 고르는 취향의 기준을 확인해보세요</p>
       </div>
 
       <div class="intro-footer">
@@ -622,7 +546,6 @@
       </header>
 
       <div class="question-body" id="question-body">
-        <p class="question-label" id="question-label">QUESTION 01</p>
         <h2 class="question-title" id="question-title"></h2>
         <div class="options" id="options" role="group" aria-labelledby="question-title"></div>
       </div>
@@ -630,17 +553,15 @@
 
     <section class="screen result-screen" id="result-screen" aria-labelledby="result-type" hidden>
       <div class="result-intro">
-        <p class="eyebrow">Your Taste DNA</p>
-        <div class="result-ornament" id="result-letter" aria-hidden="true">A</div>
         <h2 class="result-type" id="result-type"></h2>
         <p class="result-definition" id="result-definition"></p>
       </div>
 
       <article class="result-card">
-        <h3 class="card-heading">Your Characteristics</h3>
+        <h3 class="card-heading">이런 취향을 가졌어요</h3>
         <ul class="feature-list" id="feature-list"></ul>
         <div class="keyword-block">
-          <span class="keyword-label">KEYWORDS</span>
+          <span class="keyword-label">어울리는 키워드</span>
           <p class="result-keywords" id="result-keywords"></p>
         </div>
       </article>
@@ -648,7 +569,7 @@
       <div class="cta-area">
         <p class="bridge-copy" id="bridge-copy"></p>
         <a class="primary-button" id="btn_cta" href="[FINAL_URL]">내 취향에 맞는 후기 더 보기</a>
-        <p class="result-note">취향에 맞는 아이템과 실제 후기를 만나보세요</p>
+        <p class="result-note">비슷한 취향의 실제 구매 후기와 착용 모습을 확인해보세요</p>
       </div>
     </section>
   </main>
@@ -768,7 +689,6 @@
       var resultScreen = document.getElementById("result-screen");
       var questionBody = document.getElementById("question-body");
       var questionTitle = document.getElementById("question-title");
-      var questionLabel = document.getElementById("question-label");
       var optionsContainer = document.getElementById("options");
       var progressFill = document.getElementById("progress-fill");
       var progressTrack = document.querySelector(".progress-track");
@@ -842,7 +762,6 @@
 
       function renderQuestion() {
         var item = questions[currentQuestion];
-        questionLabel.textContent = "QUESTION " + String(currentQuestion + 1).padStart(2, "0");
         questionTitle.textContent = item.question;
         optionsContainer.innerHTML = "";
 
@@ -904,7 +823,6 @@
         var result = results[type];
         var featureList = document.getElementById("feature-list");
 
-        document.getElementById("result-letter").textContent = type;
         document.getElementById("result-type").textContent = result.name;
         document.getElementById("result-definition").textContent = result.definition;
         document.getElementById("result-keywords").textContent = result.keywords;
