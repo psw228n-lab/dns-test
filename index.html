@@ -365,9 +365,9 @@
     /* Result */
     .result-screen {
       padding:
-        max(25px, env(safe-area-inset-top))
+        max(20px, env(safe-area-inset-top))
         28px
-        max(25px, env(safe-area-inset-bottom));
+        max(20px, env(safe-area-inset-bottom));
     }
 
     .result-intro {
@@ -401,7 +401,7 @@
     }
 
     .card-heading {
-      margin: 0 0 22px;
+      margin: 0 0 15px;
       color: var(--ink);
       font-family: inherit;
       font-size: 1.05rem;
@@ -500,13 +500,13 @@
       text-align: center;
     }
 
-    .image-ui {
+    .result-top-ui {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
     }
 
-    #goHome, #btn_save_image {
+    #goHome, #btn_save_image, #shareBtn {
       cursor: pointer;
     }
 
@@ -590,9 +590,12 @@
     </section>
 
     <section class="screen result-screen" id="result-screen" aria-labelledby="result-type" hidden>
-      <div class="image-ui" id="image-ui">
+      <div class="result-top-ui" id="result-top-ui">
         <img src="home.png" alt="처음으로" id="goHome">
-        <img src="download.png" alt="이미지저장" id="btn_save_image">
+        <div class="result-right" id="result-right">
+            <img src="download.png" alt="이미지저장" id="btn_save_image">
+            <img src="share.png" alt="공유하기" id="shareBtn">
+        </div>
       </div>
       <div id="result-capture">
         <div class="result-intro">
@@ -961,6 +964,22 @@
 
     $('#goHome').click(function () {
       window.location.href = 'index.html';
+    });
+
+    $('#shareBtn').click(async function () {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: '나의 패션 취향 테스트',
+            text: '나의 패션 취향을 확인해보세요!',
+            url: 'https://dns-test-three.vercel.app/'
+          });
+        } catch (error) {
+          console.log('공유 취소');
+        }
+      } else {
+        alert('이 브라우저에서는 공유 기능을 지원하지 않습니다.');
+      }
     });
   </script>
 </body>
