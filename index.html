@@ -365,9 +365,9 @@
     /* Result */
     .result-screen {
       padding:
-        max(32px, env(safe-area-inset-top))
+        max(25px, env(safe-area-inset-top))
         28px
-        max(30px, env(safe-area-inset-bottom));
+        max(25px, env(safe-area-inset-bottom));
     }
 
     .result-intro {
@@ -385,7 +385,7 @@
 
     .result-definition {
       max-width: 340px;
-      margin: 20px auto 0;
+      margin: 10px auto 0;
       color: var(--muted);
       font-size: 1.02rem;
       line-height: 1.8;
@@ -500,7 +500,13 @@
       text-align: center;
     }
 
-    #restartBtn {
+    .image-ui {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    #goHome, #btn_save_image {
       cursor: pointer;
     }
 
@@ -584,7 +590,10 @@
     </section>
 
     <section class="screen result-screen" id="result-screen" aria-labelledby="result-type" hidden>
-      <img src="home.png" alt="처음으로" id="goHome">
+      <div class="image-ui" id="image-ui">
+        <img src="home.png" alt="처음으로" id="goHome">
+        <img src="download.png" alt="이미지저장" id="btn_save_image">
+      </div>
       <div id="result-capture">
         <div class="result-intro">
           <h2 class="result-type" id="result-type"></h2>
@@ -604,7 +613,7 @@
       <div class="cta-area">
         <p class="bridge-copy" id="bridge-copy"></p>
         <a class="primary-button" id="btn_cta" href="https://chicment.com/">내 취향에 맞는 후기 더 보기</a>
-        <button class="primary-button save-button" id="btn_save_image" type="button">결과 이미지 저장하기</button>
+        <!-- <button class="primary-button save-button" id="btn_save_image" type="button">결과 이미지 저장하기</button> -->
         
         <!-- <p class="result-note">비슷한 취향의 실제 구매 후기와 착용 모습을 확인해보세요</p> -->
       </div>
