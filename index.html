@@ -1,17 +1,18 @@
 <!doctype html>
 <html lang="ko">
+
 <head>
-  
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZQLM387VWS"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-    gtag('config', 'G-ZQLM387VWS');
+    gtag('config', 'G-ZQLM387VWS');
   </script>
-  
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f3f0ea">
@@ -151,9 +152,7 @@
       flex-direction: column;
       justify-content: space-between;
       padding:
-        max(34px, env(safe-area-inset-top))
-        30px
-        max(30px, env(safe-area-inset-bottom));
+        max(34px, env(safe-area-inset-top)) 30px max(30px, env(safe-area-inset-bottom));
     }
 
     .intro-copy {
@@ -196,9 +195,7 @@
     /* Questions */
     .question-screen {
       padding:
-        max(20px, env(safe-area-inset-top))
-        28px
-        max(28px, env(safe-area-inset-bottom));
+        max(20px, env(safe-area-inset-top)) 28px max(28px, env(safe-area-inset-bottom));
     }
 
     .question-header {
@@ -365,9 +362,7 @@
     /* Result */
     .result-screen {
       padding:
-        max(20px, env(safe-area-inset-top))
-        28px
-        max(20px, env(safe-area-inset-bottom));
+        max(20px, env(safe-area-inset-top)) 28px max(20px, env(safe-area-inset-bottom));
     }
 
     .result-intro {
@@ -506,7 +501,9 @@
       justify-content: space-between;
     }
 
-    #goHome, #btn_save_image, #shareBtn {
+    #goHome,
+    #btn_save_image,
+    #shareBtn {
       cursor: pointer;
     }
 
@@ -542,6 +539,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
+
       *,
       *::before,
       *::after {
@@ -551,6 +549,27 @@
       }
     }
   </style>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1771745374139361');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1771745374139361&ev=PageView&noscript=1" /></noscript>
+  <!-- End Meta Pixel Code -->
+   
 </head>
 
 <body>
@@ -578,7 +597,8 @@
             <strong id="current-count">1</strong> / 6
           </p>
         </div>
-        <div class="progress-track" role="progressbar" aria-label="테스트 진행률" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1">
+        <div class="progress-track" role="progressbar" aria-label="테스트 진행률" aria-valuemin="1" aria-valuemax="6"
+          aria-valuenow="1">
           <div class="progress-fill" id="progress-fill"></div>
         </div>
       </header>
@@ -593,8 +613,8 @@
       <div class="result-top-ui" id="result-top-ui">
         <img src="home.png" alt="처음으로" id="goHome">
         <div class="result-right" id="result-right">
-            <img src="download.png" alt="이미지저장" id="btn_save_image">
-            <img src="share.png" alt="공유하기" id="shareBtn">
+          <img src="download.png" alt="이미지저장" id="btn_save_image">
+          <img src="share.png" alt="공유하기" id="shareBtn">
         </div>
       </div>
       <div id="result-capture">
@@ -617,7 +637,7 @@
         <p class="bridge-copy" id="bridge-copy"></p>
         <a class="primary-button" id="btn_cta" href="https://chicment.com/">내 취향에 맞는 후기 더 보기</a>
         <!-- <button class="primary-button save-button" id="btn_save_image" type="button">결과 이미지 저장하기</button> -->
-        
+
         <!-- <p class="result-note">비슷한 취향의 실제 구매 후기와 착용 모습을 확인해보세요</p> -->
       </div>
     </section>
@@ -983,4 +1003,5 @@
     });
   </script>
 </body>
+
 </html>
