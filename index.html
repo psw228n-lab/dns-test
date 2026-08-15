@@ -500,6 +500,10 @@
       text-align: center;
     }
 
+    #restartBtn {
+      cursor: pointer;
+    }
+
     @media (min-width: 600px) {
       body {
         align-items: center;
@@ -580,6 +584,7 @@
     </section>
 
     <section class="screen result-screen" id="result-screen" aria-labelledby="result-type" hidden>
+      <img src="home.png" alt="처음으로" id="goHome">
       <div id="result-capture">
         <div class="result-intro">
           <h2 class="result-type" id="result-type"></h2>
@@ -943,6 +948,10 @@
 
       /* 분석 도구 연동 시 전역 함수로도 테스트할 수 있도록 노출합니다. */
       window.calculateResult = calculateResult;
+    });
+
+    $('#goHome').click(function () {
+      window.location.href = 'index.html';
     });
   </script>
 </body>
