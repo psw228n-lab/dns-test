@@ -89,7 +89,7 @@
     .screen {
       min-height: inherit;
       height: 100%;
-      overflow-y: auto;
+      /* overflow-y: auto; */
       overscroll-behavior: contain;
       opacity: 1;
       transform: translateY(0);
@@ -196,6 +196,7 @@
     .question-screen {
       padding:
         max(20px, env(safe-area-inset-top)) 28px max(28px, env(safe-area-inset-bottom));
+      overflow-y: hidden;
     }
 
     .question-header {
@@ -363,6 +364,7 @@
     .result-screen {
       padding:
         max(20px, env(safe-area-inset-top)) 28px max(20px, env(safe-area-inset-bottom));
+      overflow-y: auto;
     }
 
     .result-intro {
@@ -538,8 +540,37 @@
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
+    @media (max-height: 750px) {
+      .question-screen {
+        padding-top: max(12px, env(safe-area-inset-top));
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
+      }
 
+      .question-body {
+        padding-top: 24px;
+      }
+
+      .question-title {
+        min-height: 0;
+        font-size: clamp(1.4rem, 6vw, 2rem);
+        line-height: 1.35;
+      }
+
+      .options {
+        margin-top: 22px;
+      }
+
+      .option {
+        min-height: 68px;
+        padding: 14px 8px;
+      }
+
+      .option-text {
+        line-height: 1.45;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
       *,
       *::before,
       *::after {
@@ -548,6 +579,7 @@
         animation-duration: 0.01ms !important;
       }
     }
+    
   </style>
 
   <!-- Meta Pixel Code -->
@@ -555,7 +587,7 @@
     !function (f, b, e, v, n, t, s) {
       if (f.fbq) return; n = f.fbq = function () {
         n.callMethod ?
-        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
       };
       if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
       n.queue = []; t = b.createElement(e); t.async = !0;
@@ -569,7 +601,7 @@
   <noscript><img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=1771745374139361&ev=PageView&noscript=1" /></noscript>
   <!-- End Meta Pixel Code -->
-   
+
 </head>
 
 <body>
