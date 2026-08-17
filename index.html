@@ -360,6 +360,49 @@
       letter-spacing: -0.025em;
     }
 
+    /* Loading */
+    .loading-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding:
+        max(32px, env(safe-area-inset-top)) 28px max(32px, env(safe-area-inset-bottom));
+    }
+
+    .loading-content {
+      display: grid;
+      justify-items: center;
+      gap: 28px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .loading-spinner {
+      display: block;
+      width: 56px;
+      height: 56px;
+      border: 3px solid var(--line);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: loading-spin 760ms linear infinite;
+    }
+
+    .loading-message {
+      min-height: 2em;
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(1.15rem, 5vw, 1.4rem);
+      font-weight: 650;
+      line-height: 1.65;
+      letter-spacing: -0.035em;
+    }
+
+    @keyframes loading-spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
     /* Result */
     .result-screen {
       padding:
@@ -642,6 +685,13 @@
       </div>
     </section>
 
+    <section class="screen loading-screen" id="loading-screen" aria-labelledby="loading-message" hidden tabindex="-1">
+      <div class="loading-content" role="status" aria-live="polite" aria-atomic="true">
+        <span class="loading-spinner" aria-hidden="true"></span>
+        <p class="loading-message" id="loading-message"></p>
+      </div>
+    </section>
+
     <section class="screen result-screen" id="result-screen" aria-labelledby="result-type" hidden>
       <div class="result-top-ui" id="result-top-ui">
         <img src="home.png" alt="처음으로" id="goHome">
@@ -693,7 +743,7 @@
           }
         },
         {
-          question: "옷장을 열었을 때,\n먼저 손이 가는 건?",
+          question: "옷장을 열었을 때\n먼저 손이 가는 건?",
           options: {
             A: "로고 없이도 소재가 돋보이는 무채색 아이템",
             B: "시간이 지나도 멋스러운 클래식 아이템",
@@ -711,7 +761,7 @@
           }
         },
         {
-          question: "새로 산 명품,\nSNS에 올린다면?",
+          question: "새로 산 명품\nSNS에 올린다면?",
           options: {
             A: "브랜드가 잘 안 보여도 분위기가 예쁜 사진",
             B: "오래 입을 것 같은 클래식한 스타일링 사진",
@@ -720,7 +770,7 @@
           }
         },
         {
-          question: "사고 싶은 옷이 생겼는데,\n주변 반응이 별로라면?",
+          question: "사고 싶은 옷이 생겼는데\n주변 반응이 별로라면?",
           options: {
             A: "내가 직접 보고 퀄리티가 좋으면 산다",
             B: "오래 쓸 수 있는 제품인지 다시 생각해본다",
@@ -742,55 +792,95 @@
       var results = {
         A: {
           name: "퀄리티 우선형",
-          definition: "로고보다 만듦새로 말하는,\n절제된 취향의 소유자",
-          features: [
-            "과시보다 자기만족을 우선함",
-            "소재와 디테일을 중요하게 봄",
-            "은근한 스타일링을 선호함"
-          ],
+          definition: "로고보다 만듦새로 말하는\n절제된 취향의 소유자",
+          image: "퀄리티 우선형.png",
           keywords: "미니멀 · 무채색 · 절제된 실루엣",
-          bridge: "당신처럼 조용한 취향을 가진 사람들은\n어떤 아이템을 선택했을까?"
+          bridge: "퀄리티 우선형 사람들은\n어떤 아이템을 선택했는지 궁금하지 않으세요?"
         },
         B: {
           name: "헤리티지 추구형",
           definition: "유행보다 시간이 증명한 가치를 믿는 사람",
-          features: [
-            "브랜드 히스토리에 높은 점수를 줌",
-            "장기 보유를 전제로 구매함",
-            "전통과 장인정신을 신뢰함"
-          ],
+          image: "헤리티지 추구형.png",
           keywords: "클래식 · 정통 · 소장가치",
-          bridge: "오래 두고 봐도 좋은 아이템,\n실제 구매자들의 후기는?"
+          bridge: "오래 두고 봐도 좋은 아이템의\n실제 구매 후기가 궁금하지 않으세요?"
         },
         C: {
           name: "니치 브랜드 탐험형",
-          definition: "남들이 모르는 걸 먼저 발견하는 게\n진짜 취향이라 믿는 사람",
-          features: [
-            "신진·디자이너 브랜드에 관심이 많음",
-            "발견하는 과정 자체를 즐김",
-            "나만의 취향 표현을 중요하게 여김"
-          ],
+          definition: "유명한 것보다 새로운 것을\n먼저 찾는 사람",
+          image: "니치 브랜드 탐험형.png",
           keywords: "디스커버리 · 언더그라운드 · 나만의 발견",
-          bridge: "아직 많이 알려지지 않았지만,\n이미 써본 사람들의 이야기"
+          bridge: "아직 많이 알려지지 않은 아이템을\n먼저 경험한 사람들의 이야기는 어떠세요?"
         },
         D: {
           name: "트렌드 세터형",
           definition: "지금 이 순간\n가장 화제가 되는 것을 먼저 시도하는 사람",
-          features: [
-            "신상과 화제성에 민감함",
-            "실행력이 빠름",
-            "트렌드를 선도하는 데서 만족감을 느낌"
-          ],
+          image: "트렌드 세터형.png",
           keywords: "신상 · 화제 · 빠른 실행",
-          bridge: "요즘 가장 많이 언급되는 아이템,\n실착 후기부터 확인해보기"
+          bridge: "요즘 가장 많이 언급되는 아이템의\n실착 후기를 확인해보시는 건 어떠세요?"
         }
       };
 
+      // var results = {
+      //   A: {
+      //     name: "퀄리티 우선형",
+      //     definition: "로고보다 만듦새로 말하는,\n절제된 취향의 소유자",
+      //     features: [
+      //       "과시보다 자기만족을 우선함",
+      //       "소재와 디테일을 중요하게 봄",
+      //       "은근한 스타일링을 선호함"
+      //     ],
+      //     keywords: "미니멀 · 무채색 · 절제된 실루엣",
+      //     bridge: "퀄리티 우선형 사람들은\n어떤 아이템을 선택했는지 궁금하지 않으세요?"
+      //   },
+      //   B: {
+      //     name: "헤리티지 추구형",
+      //     definition: "유행보다 시간이 증명한 가치를 믿는 사람",
+      //     features: [
+      //       "브랜드 히스토리에 높은 점수를 줌",
+      //       "장기 보유를 전제로 구매함",
+      //       "전통과 장인정신을 신뢰함"
+      //     ],
+      //     keywords: "클래식 · 정통 · 소장가치",
+      //     bridge: "오래 두고 봐도 좋은 아이템의\n실제 구매 후기가 궁금하지 않으세요?"
+      //   },
+      //   C: {
+      //     name: "니치 브랜드 탐험형",
+      //     definition: "남들이 모르는 걸 먼저 발견하는 게\n진짜 취향이라 믿는 사람",
+      //     features: [
+      //       "신진·디자이너 브랜드에 관심이 많음",
+      //       "발견하는 과정 자체를 즐김",
+      //       "나만의 취향 표현을 중요하게 여김"
+      //     ],
+      //     keywords: "디스커버리 · 언더그라운드 · 나만의 발견",
+      //     bridge: "아직 많이 알려지지 않은 아이템을\n먼저 경험한 사람들의 이야기는 어떠세요?"
+      //   },
+      //   D: {
+      //     name: "트렌드 세터형",
+      //     definition: "지금 이 순간\n가장 화제가 되는 것을 먼저 시도하는 사람",
+      //     features: [
+      //       "신상과 화제성에 민감함",
+      //       "실행력이 빠름",
+      //       "트렌드를 선도하는 데서 만족감을 느낌"
+      //     ],
+      //     keywords: "신상 · 화제 · 빠른 실행",
+      //     bridge: "요즘 가장 많이 언급되는 아이템의\n실착 후기를 확인해보시는 건 어떠세요?"
+      //   }
+      // };
+
       var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var RESULT_REVEAL_DELAY = 1200;
+      var CTA_SHINE_DELAY = 20000;
+      var LOADING_MESSAGES = [
+        "럭셔리 DNA를 분석중이에요.",
+        "당신의 고급스러움을 분석중이에요.",
+        "당신의 아름다움을 분석중이에요.",
+        "당신의 새로운 모습을 찾고있어요."
+      ];
 
       var currentQuestion = 0;
       var answers = [];
       var transitioning = false;
+      var ctaShineTimer = null;
 
       /**
        * 최다 선택 유형을 반환합니다.
@@ -901,20 +991,61 @@
         $("#result-definition").text(result.definition);
         $("#result-keywords").text(result.keywords);
         $("#bridge-copy").text(result.bridge);
+        $("#result-dna-image")
+          .attr("src", result.image)
+          .attr("alt", result.name + " 취향 특징");
         $("#result-screen").attr("data-result", type);
-        $("#feature-list").html(result.features.map(function (feature) {
-          return "<li>" + feature + "</li>";
-        }).join(""));
+      }
+
+      // function renderResult(type) {
+      //   var result = results[type];
+      //   $("#result-type").text(result.name);
+      //   $("#result-definition").text(result.definition);
+      //   $("#result-keywords").text(result.keywords);
+      //   $("#bridge-copy").text(result.bridge);
+      //   $("#result-screen").attr("data-result", type);
+      //   $("#feature-list").html(result.features.map(function (feature) {
+      //     return "<li>" + feature + "</li>";
+      //   }).join(""));
+      // }
+
+      function showLoadingScreen() {
+        var randomIndex = Math.floor(Math.random() * LOADING_MESSAGES.length);
+        var type = calculateResult(answers);
+        renderResult(type);
+        $("#loading-message").text(LOADING_MESSAGES[randomIndex]);
+
+        switchScreen("#question-screen", "#loading-screen", function () {
+          $("#loading-screen").trigger("focus");
+          window.setTimeout(showResult, RESULT_REVEAL_DELAY);
+        });
       }
 
       function showResult() {
         var type = calculateResult(answers);
         renderResult(type);
-        switchScreen("#question-screen", "#result-screen", function () {
+        switchScreen("#loading-screen", "#result-screen", function () {
           transitioning = false;
           $("#result-screen").attr("tabindex", "-1").trigger("focus");
+
+          window.clearTimeout(ctaShineTimer);
+          $("#btn_cta").removeClass("is-shining");
+          if (!reducedMotion) {
+            ctaShineTimer = window.setTimeout(function () {
+              $("#btn_cta").addClass("is-shining");
+            }, CTA_SHINE_DELAY);
+          }
         });
       }
+
+      // function showResult() {
+      //   var type = calculateResult(answers);
+      //   renderResult(type);
+      //   switchScreen("#question-screen", "#result-screen", function () {
+      //     transitioning = false;
+      //     $("#result-screen").attr("tabindex", "-1").trigger("focus");
+      //   });
+      // }
 
       function saveResultImage() {
         var $button = $("#btn_save_image");
@@ -972,12 +1103,34 @@
 
         window.setTimeout(function () {
           if (currentQuestion === questions.length - 1) {
-            showResult();
+            showLoadingScreen();
           } else {
             moveToQuestion(currentQuestion + 1, "next");
           }
-        }, reducedMotion ? 50 : 240);
+        }, reducedMotion ? 20 : 180);
       }
+
+      // function selectAnswer(event) {
+      //   if (transitioning) {
+      //     return;
+      //   }
+
+      //   transitioning = true;
+      //   var $selectedButton = $(event.currentTarget);
+      //   var selectedType = $selectedButton.data("type");
+      //   $("#options .option").prop("disabled", true).removeClass("is-selected was-selected");
+
+      //   $selectedButton.addClass("is-selected");
+      //   answers[currentQuestion] = selectedType;
+
+      //   window.setTimeout(function () {
+      //     if (currentQuestion === questions.length - 1) {
+      //       showResult();
+      //     } else {
+      //       moveToQuestion(currentQuestion + 1, "next");
+      //     }
+      //   }, reducedMotion ? 50 : 240);
+      // }
 
       $("#btn_test_start").on("click", function () {
         if (transitioning) {
