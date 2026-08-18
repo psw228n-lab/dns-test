@@ -487,6 +487,7 @@
       line-height: 1.55;
       letter-spacing: -0.025em;
     }
+
     /* .result-screen {
       padding:
         max(20px, env(safe-area-inset-top)) 28px max(20px, env(safe-area-inset-bottom));
@@ -599,14 +600,12 @@
       bottom: -30%;
       left: -60%;
       width: 48%;
-      background: linear-gradient(
-        100deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.18) 35%,
-        rgba(255, 255, 255, 0.62) 50%,
-        rgba(255, 255, 255, 0.18) 65%,
-        rgba(255, 255, 255, 0) 100%
-      );
+      background: linear-gradient(100deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.18) 35%,
+          rgba(255, 255, 255, 0.62) 50%,
+          rgba(255, 255, 255, 0.18) 65%,
+          rgba(255, 255, 255, 0) 100%);
       content: "";
       opacity: 0;
       pointer-events: none;
@@ -748,6 +747,7 @@
     } */
 
     @media (prefers-reduced-motion: reduce) {
+
       *,
       *::before,
       *::after {
@@ -756,7 +756,6 @@
         animation-duration: 0.01ms !important;
       }
     }
-    
   </style>
 
   <!-- Meta Pixel Code -->
@@ -774,7 +773,6 @@
       'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '1771745374139361');
     fbq('track', 'PageView');
-    fbq('track', 'ViewContent');
   </script>
   <noscript><img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=1771745374139361&ev=PageView&noscript=1" /></noscript>
@@ -854,10 +852,8 @@
 
       <div class="cta-area">
         <p class="bridge-copy" id="bridge-copy"></p>
-        <a class="primary-button" id="btn_cta" href="https://chicment.com/reviews" onclick="fbq('trackCustom', 'CTA_Click');">내 취향에 맞는 후기 더 보기</a>
-        <!-- <button class="primary-button save-button" id="btn_save_image" type="button">결과 이미지 저장하기</button> -->
-
-        <!-- <p class="result-note">비슷한 취향의 실제 구매 후기와 착용 모습을 확인해보세요</p> -->
+        <a class="primary-button" id="btn_cta" href="https://chicment.com/reviews"
+          onclick="fbq('trackCustom', 'CTA_Click');">내 취향에 맞는 후기 더 보기</a>
       </div>
     </section>
   </main>
@@ -960,53 +956,6 @@
         }
       };
 
-      // var results = {
-      //   A: {
-      //     name: "퀄리티 우선형",
-      //     definition: "로고보다 만듦새로 말하는,\n절제된 취향의 소유자",
-      //     features: [
-      //       "과시보다 자기만족을 우선함",
-      //       "소재와 디테일을 중요하게 봄",
-      //       "은근한 스타일링을 선호함"
-      //     ],
-      //     keywords: "미니멀 · 무채색 · 절제된 실루엣",
-      //     bridge: "퀄리티 우선형이 실제로\n만족한 아이템은 무엇일까요?"
-      //   },
-      //   B: {
-      //     name: "헤리티지 추구형",
-      //     definition: "유행보다 시간이 증명한 가치를 믿는 사람",
-      //     features: [
-      //       "브랜드 히스토리에 높은 점수를 줌",
-      //       "장기 보유를 전제로 구매함",
-      //       "전통과 장인정신을 신뢰함"
-      //     ],
-      //     keywords: "클래식 · 정통 · 소장가치",
-      //     bridge: "오래 사용할수록 만족도가 높아지는\n아이템이 궁금하지 않으세요?"
-      //   },
-      //   C: {
-      //     name: "니치 브랜드 탐험형",
-      //     definition: "남들이 모르는 걸 먼저 발견하는 게\n진짜 취향이라 믿는 사람",
-      //     features: [
-      //       "신진·디자이너 브랜드에 관심이 많음",
-      //       "발견하는 과정 자체를 즐김",
-      //       "나만의 취향 표현을 중요하게 여김"
-      //     ],
-      //     keywords: "디스커버리 · 언더그라운드 · 나만의 발견",
-      //     bridge: "취향 있는 사람들이 먼저 발견한\n브랜드를 만나보는 건 어떠세요?"
-      //   },
-      //   D: {
-      //     name: "트렌드 세터형",
-      //     definition: "지금 이 순간\n가장 화제가 되는 것을 먼저 시도하는 사람",
-      //     features: [
-      //       "신상과 화제성에 민감함",
-      //       "실행력이 빠름",
-      //       "트렌드를 선도하는 데서 만족감을 느낌"
-      //     ],
-      //     keywords: "신상 · 화제 · 빠른 실행",
-      //     bridge: "지금 가장 빠르게 반응이 오는\n아이템을 확인해보는 건 어떠세요?"
-      //   }
-      // };
-
       var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       var RESULT_REVEAL_DELAY = 1200;
       var CTA_SHINE_DELAY = 20000;
@@ -1018,40 +967,11 @@
       ];
 
       var currentQuestion = 0;
-      var answers = [];
+      var answers = []; // 결과 누적
       var transitioning = false;
       var ctaShineTimer = null;
 
-      /**
-       * 최다 선택 유형을 반환합니다.
-       * 동점이면 답변을 마지막 문항부터 역순으로 확인해
-       * 가장 나중에 선택된 동점 유형을 우선합니다.
-       * @param {string[]} answerList
-       * @returns {string}
-       */
-      function calculateResult(answerList) {
-        var scores = { A: 0, B: 0, C: 0, D: 0 };
-
-        answerList.forEach(function (answer) {
-          if (Object.prototype.hasOwnProperty.call(scores, answer)) {
-            scores[answer] += 1;
-          }
-        });
-
-        var highestScore = Math.max(scores.A, scores.B, scores.C, scores.D);
-        var tiedTypes = TYPES.filter(function (type) {
-          return scores[type] === highestScore;
-        });
-
-        for (var index = answerList.length - 1; index >= 0; index -= 1) {
-          if (tiedTypes.indexOf(answerList[index]) !== -1) {
-            return answerList[index];
-          }
-        }
-
-        return "A";
-      }
-
+      // ===== 2. 화면 전환 유틸 =====
       function switchScreen(fromScreen, toScreen, onShown) {
         $(fromScreen).addClass("is-exiting");
 
@@ -1071,6 +991,24 @@
         }, reducedMotion ? 20 : 180);
       }
 
+      // ===== 3. 테스트 시작하기 =====
+      $("#btn_test_start").on("click", function () {
+        if (transitioning) {
+          return;
+        }
+        transitioning = true;
+
+        fbq('track', 'Startbtn');
+
+        currentQuestion = 0;
+        answers = [];
+        renderQuestion();
+        switchScreen("#intro-screen", "#question-screen", function () {
+          transitioning = false;
+        });
+      });
+
+      // ===== 4. 문항 렌더링 & 진행 =====
       function updateProgress() {
         var number = currentQuestion + 1;
         $("#current-count").text(number);
@@ -1102,6 +1040,35 @@
         updateProgress();
       }
 
+      // ===== 5. 답변 선택 =====
+      function selectAnswer(event) {
+        if (transitioning) {
+          return;
+        }
+
+        transitioning = true;
+        var $selectedButton = $(event.currentTarget);
+        var selectedType = $selectedButton.data("type");
+        $("#options .option").prop("disabled", true).removeClass("is-selected was-selected");
+
+        $selectedButton.addClass("is-selected");
+        answers[currentQuestion] = selectedType;
+
+        fbq('trackCustom', 'QuestionAnswered', {
+          question_number: currentQuestion + 1,
+          answer_type: selectedType
+        });
+
+        window.setTimeout(function () {
+          if (currentQuestion === questions.length - 1) {
+            showLoadingScreen();
+          } else {
+            moveToQuestion(currentQuestion + 1, "next");
+          }
+        }, reducedMotion ? 20 : 180);
+      }
+
+      //===== 6. 다음 문항 이동 =====
       function moveToQuestion(nextIndex, direction) {
         var leavingClass = direction === "prev" ? "is-leaving-prev" : "is-leaving-next";
         var enteringClass = direction === "prev" ? "is-entering-prev" : "is-entering-next";
@@ -1125,6 +1092,56 @@
         }, reducedMotion ? 20 : 160);
       }
 
+      // ===== 7. 이전 버튼 =====
+      $("#back-button").on("click", function () {
+        if (transitioning) {
+          return;
+        }
+
+        if (currentQuestion === 0) {
+          transitioning = true;
+          switchScreen("#question-screen", "#intro-screen", function () {
+            transitioning = false;
+          });
+          return;
+        }
+
+        moveToQuestion(currentQuestion - 1, "prev");
+      });
+
+
+      // 결과 계산
+      /**
+       * 최다 선택 유형을 반환합니다.
+       * 동점이면 답변을 마지막 문항부터 역순으로 확인해
+       * 가장 나중에 선택된 동점 유형을 우선합니다.
+       * @param {string[]} answerList
+       * @returns {string}
+       */
+      function calculateResult(answerList) {
+        var scores = { A: 0, B: 0, C: 0, D: 0 };
+
+        answerList.forEach(function (answer) {
+          if (Object.prototype.hasOwnProperty.call(scores, answer)) {
+            scores[answer] += 1;
+          }
+        });
+
+        var highestScore = Math.max(scores.A, scores.B, scores.C, scores.D);
+        var tiedTypes = TYPES.filter(function (type) {
+          return scores[type] === highestScore;
+        });
+
+        for (var index = answerList.length - 1; index >= 0; index -= 1) {
+          if (tiedTypes.indexOf(answerList[index]) !== -1) {
+            return answerList[index];
+          }
+        }
+
+        return "A";
+      }
+
+      // ===== 9. 결과 화면 데이터 세팅 =====
       function renderResult(type) {
         var result = results[type];
         $("#result-type").text(result.name);
@@ -1138,18 +1155,7 @@
         $("#result-screen").attr("data-result", type);
       }
 
-      // function renderResult(type) {
-      //   var result = results[type];
-      //   $("#result-type").text(result.name);
-      //   $("#result-definition").text(result.definition);
-      //   $("#result-keywords").text(result.keywords);
-      //   $("#bridge-copy").text(result.bridge);
-      //   $("#result-screen").attr("data-result", type);
-      //   $("#feature-list").html(result.features.map(function (feature) {
-      //     return "<li>" + feature + "</li>";
-      //   }).join(""));
-      // }
-
+      // ===== 10. 로딩 화면 =====
       function showLoadingScreen() {
         var randomIndex = Math.floor(Math.random() * LOADING_MESSAGES.length);
         var type = calculateResult(answers);
@@ -1162,9 +1168,16 @@
         });
       }
 
+      // ===== 11. 결과 화면 표시 (fbq는 여기 한 곳에서만 발동) =====
       function showResult() {
         var type = calculateResult(answers);
         renderResult(type);
+
+        fbq('track', 'CompleteRegistration', {
+          content_name: results[type].name,
+          result_type: type
+        });
+
         switchScreen("#loading-screen", "#result-screen", function () {
           transitioning = false;
           $("#result-screen").attr("tabindex", "-1").trigger("focus");
@@ -1179,15 +1192,18 @@
         });
       }
 
-      // function showResult() {
-      //   var type = calculateResult(answers);
-      //   renderResult(type);
-      //   switchScreen("#question-screen", "#result-screen", function () {
-      //     transitioning = false;
-      //     $("#result-screen").attr("tabindex", "-1").trigger("focus");
-      //   });
-      // }
+      // ===== 12. 이벤트 바인딩 & 전역 노출 =====
+      $("#options").on("click", ".option", selectAnswer);
 
+      /* 분석 도구 연동 시 전역 함수로도 테스트할 수 있도록 노출합니다. */
+      window.calculateResult = calculateResult;
+
+      // ===== 13. 부가 기능 (메인으로, 이미지 다운로드, 공유) =====
+      $('#goHome').click(function () {
+        window.location.href = 'index.html';
+      });
+
+      // 이미지 저장
       function saveResultImage() {
         var $button = $("#btn_save_image");
         var fileName = $("#result-type").text() + "-결과.png";
@@ -1222,6 +1238,8 @@
               resolve();
             }, "image/png");
           });
+        }).then(function () {
+          fbq('trackCustom', 'ResultImageSaved');   // 여기 추가 — 저장 성공 시점
         }).catch(function () {
           alert("이미지를 저장하지 못했습니다. 다시 시도해주세요.");
         }).finally(function () {
@@ -1229,105 +1247,70 @@
         });
       }
 
-      function selectAnswer(event) {
-        if (transitioning) {
-          return;
-        }
+      // function saveResultImage() {
+      //   var $button = $("#btn_save_image");
+      //   var fileName = $("#result-type").text() + "-결과.png";
 
-        transitioning = true;
-        var $selectedButton = $(event.currentTarget);
-        var selectedType = $selectedButton.data("type");
-        $("#options .option").prop("disabled", true).removeClass("is-selected was-selected");
+      //   $button.prop("disabled", true).text("이미지 만드는 중");
 
-        $selectedButton.addClass("is-selected");
-        answers[currentQuestion] = selectedType;
+      //   html2canvas($("#result-capture")[0], {
+      //     scale: 2,
+      //     backgroundColor: "#f3f0ea",
+      //     useCORS: true
+      //   }).then(function (canvas) {
+      //     return new Promise(function (resolve, reject) {
+      //       canvas.toBlob(function (blob) {
+      //         if (!blob) {
+      //           reject(new Error("이미지 생성에 실패했습니다."));
+      //           return;
+      //         }
 
-        window.setTimeout(function () {
-          if (currentQuestion === questions.length - 1) {
-            showLoadingScreen();
-          } else {
-            moveToQuestion(currentQuestion + 1, "next");
-          }
-        }, reducedMotion ? 20 : 180);
-      }
+      //         var imageUrl = URL.createObjectURL(blob);
+      //         var $download = $("<a>", {
+      //           href: imageUrl,
+      //           download: fileName
+      //         }).appendTo("body");
 
-      // function selectAnswer(event) {
-      //   if (transitioning) {
-      //     return;
-      //   }
+      //         $download[0].click();
+      //         $download.remove();
 
-      //   transitioning = true;
-      //   var $selectedButton = $(event.currentTarget);
-      //   var selectedType = $selectedButton.data("type");
-      //   $("#options .option").prop("disabled", true).removeClass("is-selected was-selected");
+      //         window.setTimeout(function () {
+      //           URL.revokeObjectURL(imageUrl);
+      //         }, 1000);
 
-      //   $selectedButton.addClass("is-selected");
-      //   answers[currentQuestion] = selectedType;
-
-      //   window.setTimeout(function () {
-      //     if (currentQuestion === questions.length - 1) {
-      //       showResult();
-      //     } else {
-      //       moveToQuestion(currentQuestion + 1, "next");
-      //     }
-      //   }, reducedMotion ? 50 : 240);
+      //         resolve();
+      //       }, "image/png");
+      //     });
+      //   }).catch(function () {
+      //     alert("이미지를 저장하지 못했습니다. 다시 시도해주세요.");
+      //   }).finally(function () {
+      //     $button.prop("disabled", false).text("결과 이미지 저장하기");
+      //   });
       // }
-
-      $("#btn_test_start").on("click", function () {
-        if (transitioning) {
-          return;
-        }
-        transitioning = true;
-        currentQuestion = 0;
-        answers = [];
-        renderQuestion();
-        switchScreen("#intro-screen", "#question-screen", function () {
-          transitioning = false;
-        });
-      });
-
-      $("#back-button").on("click", function () {
-        if (transitioning) {
-          return;
-        }
-
-        if (currentQuestion === 0) {
-          transitioning = true;
-          switchScreen("#question-screen", "#intro-screen", function () {
-            transitioning = false;
-          });
-          return;
-        }
-
-        moveToQuestion(currentQuestion - 1, "prev");
-      });
-
-      $("#options").on("click", ".option", selectAnswer);
       $("#btn_save_image").on("click", saveResultImage);
 
-      /* 분석 도구 연동 시 전역 함수로도 테스트할 수 있도록 노출합니다. */
-      window.calculateResult = calculateResult;
-    });
+      $('#shareBtn').click(async function () {
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: '나의 패션 취향 테스트',
+              text: '나의 패션 취향을 확인해보세요!',
+              url: 'https://fashiondna.dothome.co.kr/'
+            });
 
-    $('#goHome').click(function () {
-      window.location.href = 'index.html';
-    });
-
-    $('#shareBtn').click(async function () {
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: '나의 패션 취향 테스트',
-            text: '나의 패션 취향을 확인해보세요!',
-            url: 'https://dns-test-three.vercel.app/'
-          });
-        } catch (error) {
-          console.log('공유 취소');
+            fbq('trackCustom', 'ResultShared');
+            
+          } catch (error) {
+            console.log('공유 취소');
+          }
+        } else {
+          alert('이 브라우저에서는 공유 기능을 지원하지 않습니다.');
         }
-      } else {
-        alert('이 브라우저에서는 공유 기능을 지원하지 않습니다.');
-      }
+      });
+
     });
+
+
   </script>
 </body>
 
