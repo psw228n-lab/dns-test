@@ -771,6 +771,8 @@
       s.parentNode.insertBefore(t, s)
     }(window, document, 'script',
       'https://connect.facebook.net/en_US/fbevents.js');
+
+    fbq('set', 'autoConfig', false, '1771745374139361');
     fbq('init', '1771745374139361');
     fbq('track', 'PageView');
   </script>
@@ -1299,7 +1301,7 @@
             });
 
             fbq('trackCustom', 'ResultShared');
-            
+
           } catch (error) {
             console.log('공유 취소');
           }
