@@ -854,8 +854,7 @@
 
       <div class="cta-area">
         <p class="bridge-copy" id="bridge-copy"></p>
-        <a class="primary-button" id="btn_cta" href="https://chicment.com/reviews"
-          onclick="fbq('trackCustom', 'CTA_Click');">내 취향에 맞는 후기 더 보기</a>
+        <a class="primary-button" id="btn_cta">내 취향에 맞는 후기 더 보기</a>
       </div>
     </section>
   </main>
@@ -1199,6 +1198,18 @@
 
       /* 분석 도구 연동 시 전역 함수로도 테스트할 수 있도록 노출합니다. */
       window.calculateResult = calculateResult;
+
+      $('#btn_cta').on('click', function (event) {
+        event.preventDefault();
+
+        const destination = $(this).attr('href');
+
+        fbq('trackCustom', 'CTA_Click');
+
+        setTimeout(function () {
+          window.location.href = 'https://chicment.com/reviews';
+        }, 300);
+      });
 
       // ===== 13. 부가 기능 (메인으로, 이미지 다운로드, 공유) =====
       $('#goHome').click(function () {
