@@ -1065,10 +1065,10 @@
         $selectedButton.addClass("is-selected");
         answers[currentQuestion] = selectedType;
 
-        fbq('trackCustom', 'QuestionAnswered', {
-          question_number: currentQuestion + 1,
+        fbq('trackCustom', 'QuestionAnswered' + (currentQuestion + 1), {
           answer_type: selectedType
         });
+        
         gtag('event', 'question_answer', {
           question_number: currentQuestion + 1,
           answer_type: selectedType
