@@ -1014,7 +1014,9 @@
         transitioning = true;
 
         fbq('trackCustom', 'Startbtn');
-        gtag('event', 'test_start');
+        dataLayer.push({
+          event: 'test_start'
+        });
 
         currentQuestion = 0;
         answers = [];
@@ -1035,7 +1037,8 @@
       }
 
       function trackQuestionView() {
-        gtag('event', 'question_view', {
+        dataLayer.push({
+          event: 'question_view',
           question_number: currentQuestion + 1
         });
       }
@@ -1082,7 +1085,8 @@
           answer_type: selectedType
         });
         
-        gtag('event', 'question_answer', {
+        dataLayer.push({
+          event: 'question_answer',
           question_number: currentQuestion + 1,
           answer_type: selectedType
         });
@@ -1208,7 +1212,8 @@
         });
 
         if (!testCompleteTracked) {
-          gtag('event', 'test_complete', {
+          dataLayer.push({
+            event: 'test_complete',
             result_type: type,
             result_name: results[type].name
           });
@@ -1242,7 +1247,8 @@
         const destination = $(this).attr('href');
 
         fbq('trackCustom', 'CTA_Click');
-        gtag('event', 'cta_click', {
+        dataLayer.push({
+          event: 'cta_click',
           result_type: $("#result-screen").attr("data-result"),
           link_url: 'https://chicment.com/reviews'
         });
