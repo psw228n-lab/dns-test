@@ -3,15 +3,13 @@
 
 <head>
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZQLM387VWS"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-ZQLM387VWS');
-  </script>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5FZ2L455');</script>
+  <!-- End Google Tag Manager -->
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -783,6 +781,11 @@
 </head>
 
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FZ2L455"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+   
   <main class="app" id="app">
     <section class="screen intro-screen" id="intro-screen" aria-labelledby="intro-title">
       <div class="intro-copy">
@@ -1001,7 +1004,9 @@
         transitioning = true;
 
         fbq('trackCustom', 'Startbtn');
-        gtag('event', 'test_start');
+        dataLayer.push({
+          event: 'test_start'
+        });
 
         currentQuestion = 0;
         answers = [];
@@ -1022,7 +1027,8 @@
       }
 
       function trackQuestionView() {
-        gtag('event', 'question_view', {
+        dataLayer.push({
+          event: 'question_view',
           question_number: currentQuestion + 1
         });
       }
@@ -1068,8 +1074,9 @@
         fbq('trackCustom', 'QuestionAnswered' + (currentQuestion + 1), {
           answer_type: selectedType
         });
-
-        gtag('event', 'question_answer', {
+        
+        dataLayer.push({
+          event: 'question_answer',
           question_number: currentQuestion + 1,
           answer_type: selectedType
         });
@@ -1195,7 +1202,8 @@
         });
 
         if (!testCompleteTracked) {
-          gtag('event', 'test_complete', {
+          dataLayer.push({
+            event: 'test_complete',
             result_type: type,
             result_name: results[type].name
           });
@@ -1229,7 +1237,8 @@
         const destination = $(this).attr('href');
 
         fbq('trackCustom', 'CTA_Click');
-        gtag('event', 'cta_click', {
+        dataLayer.push({
+          event: 'cta_click',
           result_type: $("#result-screen").attr("data-result"),
           link_url: 'https://chicment.com/reviews'
         });
